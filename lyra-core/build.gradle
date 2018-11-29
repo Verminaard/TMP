@@ -1,0 +1,14 @@
+dependencies {
+    compile project(':lyra-entities')
+
+    compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile "org.hibernate:hibernate-envers"
+    compile "org.hibernate:hibernate-validator:6.0.13.Final"
+    compile "com.fasterxml.jackson.core:jackson-annotations"
+    // Если потребуется обновить версию dozer, нужно так же обновить её в файле spring-devtools.properties
+    compile "com.github.dozermapper:dozer-core:6.1.0"
+
+    provided "org.springframework.security.extensions:spring-security-saml2-core:1.0.2.RELEASE"
+
+    testCompile "org.springframework.boot:spring-boot-starter-test:1.5.10.RELEASE"
+}

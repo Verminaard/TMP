@@ -1,0 +1,38 @@
+plugins {
+    id "groovy"
+}
+
+bootRun {
+    if (project.hasProperty('args')) {
+        args project.args.split('\\s+')
+    }
+}
+
+dependencies {
+    compile project(":lyra-core")
+
+    compile 'org.postgresql:postgresql'
+
+    compile "org.springframework:spring-context-support"
+    compile "org.springframework.boot:spring-boot-devtools"
+    compile "org.springframework.boot:spring-boot-starter-security"
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.security.extensions:spring-security-saml2-core:1.0.2.RELEASE"
+
+    provided "me.moocar:logback-gelf:0.3"
+
+    runtime "org.slf4j:jcl-over-slf4j"
+}
+
+bootRun {
+    def br = delegate
+    Properties p = new Properties()
+    def file = project.rootProject.file('local-boot.properties')
+    if (file.exists()) {
+        p.load(file.newDataInputStream())
+        p.entrySet().each { e ->
+            logger.lifecycle "local spring-boot property $e.key = $e.value"
+            br.systemProperty e.key, e.value
+        }
+    }
+}

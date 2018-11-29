@@ -1,0 +1,28 @@
+/.gradle/
+build/
+*/build/
+!gradle/wrapper/gradle-wrapper.jar
+**/gradle/wrapper/gradle-wrapper.properties
+/gradle/wrapper/gradle-wrapper.properties
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+*/out
+
+*.log
+.idea/
+node_modules/
+**/node_modules/
+local-boot.properties
