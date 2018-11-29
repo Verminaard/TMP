@@ -4,4 +4,5 @@ include ':lyra-core'
 include ':lyra-entities'
 include ':lyra-web'
 include ':lyra-docs'
+include ':lyra-client'
 
