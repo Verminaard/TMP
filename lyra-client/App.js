@@ -7,8 +7,9 @@ import { StackNavigator,DrawerNavigator } from 'react-navigation';
 import HomeScreen from "./HomeScreen";
 import SettingsScreen from "./SettingsScreen";
 import Map from "./src/components/map/Map";
-import List from "./src/components/list/List";
+import ProblemList from "./src/components/list/ProblemList";
 import ListMy from "./src/components/myList/ListMy";
+import LogInPage from "./src/components/login/LogInPage";
 import { Container, Header, Content, Footer, FooterTab,  Left, Body, Right, Title, Icon, Button   } from 'native-base';
 
 const Navigator = StackNavigator({
@@ -18,7 +19,8 @@ const Navigator = StackNavigator({
   }
 });
 const DrNv = DrawerNavigator({
-HomeScreen:{screen:Navigator}
+HomeScreen:{screen:Navigator},
+Login: {screen: LogInPage }
 });
 export default class App extends Component {
 
