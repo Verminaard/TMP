@@ -6,11 +6,10 @@ import lombok.ToString;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.StringJoiner;
-
-import static org.springframework.util.CollectionUtils.isEmpty;
 
 @Entity
 @Table(name = "Users")
@@ -19,8 +18,13 @@ import static org.springframework.util.CollectionUtils.isEmpty;
 @EqualsAndHashCode(of = {"login", "email"}, callSuper = true)
 public class User extends GenericLombokEntity{
 
-    @Column(name="login", unique = true)
+    @Size(min = 3, max = 64, message = "Длина логина должна быть от 3 до 64 символов")
+    @Column(name="login", unique = true, nullable = false)
     private String login;
+
+    @Size(min = 5, max = 64, message = "Длина пароля должна быть от 5 до 64 символов")
+    @Column(name = "password", nullable = false, length = 64)
+    public String password;
 
     @Transient
     public String getFio() {
@@ -37,23 +41,20 @@ public class User extends GenericLombokEntity{
         return joiner.toString();
     }
 
-    @Column(name = "firstName")
+    @Column(name = "firstName", nullable = false)
     private String firstName;
+
+    @Column(name = "middleName", nullable = false)
+    private String middleName;
 
     @Column(name = "lastName")
     private String lastName;
-
-    @Column(name = "middleName")
-    private String middleName;
 
     @Column(name = "email")
     private String email;
 
     @Column(name = "telephone")
     private String telephone;
-
-    @Transient
-    private String password;
 
     @Column(name = "isEnabled")
     private Boolean enabled;
@@ -73,10 +74,10 @@ public class User extends GenericLombokEntity{
         if (authorityName == null || authorityName.isEmpty()) {
             return false;
         }
-        if (getAuthorities().isEmpty()) {
+        if (authorities.isEmpty()) {
             return false;
         } else {
-            for (UserAuthority userAuthority : getAuthorities()) {
+            for (UserAuthority userAuthority : authorities) {
                 if (userAuthority.getName().equals(authorityName)) {
                     return true;
                 }

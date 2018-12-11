@@ -3,7 +3,9 @@ dependencies {
 
     compile "org.springframework.boot:spring-boot-starter-data-jpa"
     compile "org.hibernate:hibernate-envers"
-    compile "org.hibernate:hibernate-validator:6.0.13.Final"
+    compile "org.hibernate:hibernate-validator"
+    compile "org.springframework.security:spring-security-core"
+
     compile "com.fasterxml.jackson.core:jackson-annotations"
     // Если потребуется обновить версию dozer, нужно так же обновить её в файле spring-devtools.properties
     compile "com.github.dozermapper:dozer-core:6.1.0"
