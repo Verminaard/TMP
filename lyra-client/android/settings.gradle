@@ -1,3 +1,3 @@
-rootProject.name = 'ProjectOne'
+rootProject.name = 'lyra-client'
 
 include ':app'
