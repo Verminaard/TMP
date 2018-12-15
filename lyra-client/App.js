@@ -10,8 +10,11 @@ import Map from "./src/components/map/Map";
 import ProblemList from "./src/components/list/ProblemList";
 import ListMy from "./src/components/myList/ListMy";
 import LogInPage from "./src/components/login/LogInPage";
-import { Container, Header, Content, Footer, FooterTab,  Left, Body, Right, Title, Icon, Button   } from 'native-base';
-
+import RegisterPage from "./src/components/register/RegisterPage";
+import EditAccountPage from "ProjectOne/src/components/editPage/EditAccountPage";
+import Account from "./src/components/account/Account";
+import { Container, Header, Content, Footer, FooterTab,  Left, Body, Right, Title, Icon, Button } from 'native-base';
+import FormTest from "./FormTest";
 const Navigator = StackNavigator({
 
   Main:{
@@ -20,7 +23,11 @@ const Navigator = StackNavigator({
 });
 const DrNv = DrawerNavigator({
 HomeScreen:{screen:Navigator},
-Login: {screen: LogInPage }
+Login: {screen: LogInPage },
+Register: {screen: RegisterPage },
+Valid: {screen: FormTest },
+Account:{screen: Account},
+EditAccountPage:{screen: EditAccountPage}
 });
 export default class App extends Component {
 

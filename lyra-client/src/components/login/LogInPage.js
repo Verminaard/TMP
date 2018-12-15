@@ -3,7 +3,7 @@ import {Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right } 
 import {View, StyleSheet } from "react-native";
 import { DrawerNavigator } from 'react-navigation';
 //import { Icon, Button, Container, Header, Content, Left } from 'native-base'
-//import Register from "./register/Register";
+import RegisterPage from "ProjectOne/src/components/register/RegisterPage";
 export default class LogInPage extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => {
@@ -23,7 +23,7 @@ export default class LogInPage extends Component {
                   </Item>
                 </Form>
 
-                <Button block>
+                <Button block onPress={() => navigate('HomeScreen')}>
                       <Text>log In</Text>
                 </Button>
                 <Button block onPress={() => navigate('Register')}>

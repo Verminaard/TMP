@@ -10,7 +10,10 @@
     "native-base": "^2.8.1",
     "react": "16.3.1",
     "react-native": "^0.57.7",
+    "react-native-checkbox-form": "^1.1.5",
     "react-native-drawer": "^2.5.1",
+    "react-native-form-validator": "^0.2.0",
+    "react-native-picker-checkbox": "^1.0.8",
     "react-native-sidebar": "^0.3.0",
     "react-navigation": "^2.18.3"
   },
