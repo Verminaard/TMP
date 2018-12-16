@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Container, Text, Content, Icon } from 'native-base';
+import {Container, Header, Content, List, ListItem, Text, Left, Right, Icon } from 'native-base';
 //import { View, Text, StyleSheet } from "react-native";
 import { DrawerNavigator } from 'react-navigation';
 //import { Icon, Button, Container, Header, Content, Left } from 'native-base'
@@ -11,18 +11,28 @@ export default class ListMy extends Component {
     }
   }
   render() {
-    return (<Container>
-            <Content>
-          
-              <Text>
-            ListMy
-              </Text>
+    var items = [
+     'Это',
+    // 'Nathaniel Clyne',
+     'Динамические',
 
-            </Content>
-    </Container>);
+     'Листы'
+   ];
+    return (
+      <Container>
+
+      <Content>
+        <List dataArray={items}
+          renderRow={(item) =>
+            <ListItem>
+              <Text>{item}</Text>
+            </ListItem>
+          }>
+        </List>
+      </Content>
+        </Container>);
   }
 }
-
 /*import { View, Text, StyleSheet } from "react-native";
 import { DrawerNavigator } from 'react-navigation';
 import { Icon, Button, Container, Header, Content, Left } from 'native-base'
