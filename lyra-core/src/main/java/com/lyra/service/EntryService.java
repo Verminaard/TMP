@@ -1,6 +1,7 @@
 package com.lyra.service;
 
 import com.lyra.bean.Entry.Entry;
+import com.lyra.bean.common.ApplicationUser;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface EntryService
 
     Entry getEntry(String id);
 
-    Entry saveEntry(Entry entry);
+    Entry saveEntry(ApplicationUser user, Entry entry);
 
     void deleteEntry(String id);
 
