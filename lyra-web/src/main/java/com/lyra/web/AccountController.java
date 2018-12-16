@@ -1,10 +1,9 @@
 package com.lyra.web;
 
-import com.lyra.bean.common.User;
+import com.lyra.bean.common.ApplicationUser;
 import com.lyra.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 public class AccountController
@@ -17,8 +16,8 @@ public class AccountController
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public User registerUser(@RequestBody User user) {
-        return userService.saveUser(user);
+    @RequestMapping(value = "/sign-up", method = RequestMethod.POST)
+    public ApplicationUser registerUser(@RequestBody ApplicationUser applicationUser) {
+        return userService.saveUser(applicationUser);
     }
 }

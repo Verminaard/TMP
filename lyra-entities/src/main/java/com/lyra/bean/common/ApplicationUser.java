@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.springframework.lang.Nullable;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -16,7 +17,8 @@ import java.util.StringJoiner;
 @Data
 @ToString(callSuper = true, of = {"login"})
 @EqualsAndHashCode(of = {"login", "email"}, callSuper = true)
-public class User extends GenericLombokEntity{
+public class ApplicationUser extends GenericLombokEntity implements UserDetails
+{
 
     @Size(min = 3, max = 64, message = "Длина логина должна быть от 3 до 64 символов")
     @Column(name="login", unique = true, nullable = false)
@@ -57,7 +59,28 @@ public class User extends GenericLombokEntity{
     private String telephone;
 
     @Column(name = "isEnabled")
-    private Boolean enabled;
+    private boolean enabled;
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Transient
+    @Override
+    public String getUsername() {
+        return getLogin();
+    }
 
     @Transient
     private Set<UserAuthority> authorities = new LinkedHashSet<>();
@@ -86,8 +109,8 @@ public class User extends GenericLombokEntity{
         }
     }
 
-    public static boolean hasAuthority(@Nullable User user, @Nullable String authorityName) {
-        return !(user == null || (authorityName == null || authorityName.isEmpty())) && user.hasAuthority(authorityName);
+    public static boolean hasAuthority(@Nullable ApplicationUser applicationUser, @Nullable String authorityName) {
+        return !(applicationUser == null || (authorityName == null || authorityName.isEmpty())) && applicationUser.hasAuthority(authorityName);
     }
 
     @Transient
@@ -100,10 +123,10 @@ public class User extends GenericLombokEntity{
         return false;
     }
 
-    public static boolean hasAnyAuthorities(@Nullable User user, Set<String> authorityNameSet) {
-        if (user != null) {
+    public static boolean hasAnyAuthorities(@Nullable ApplicationUser applicationUser, Set<String> authorityNameSet) {
+        if (applicationUser != null) {
             for (String authorityName : authorityNameSet) {
-                if (user.hasAuthority(authorityName)) {
+                if (applicationUser.hasAuthority(authorityName)) {
                     return true;
                 }
             }

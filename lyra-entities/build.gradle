@@ -1,7 +1,7 @@
 dependencies {
-    compile "org.hibernate:hibernate-envers"
-    compile "org.hibernate:hibernate-validator"
-    compile "org.springframework.security:spring-security-core"
+    provided "org.hibernate:hibernate-envers"
+    provided "org.hibernate:hibernate-validator:6.0.13.Final"
+    provided "org.springframework.security:spring-security-core"
     provided "com.fasterxml.jackson.core:jackson-annotations"
     provided "org.projectlombok:lombok:1.16.8"
 }

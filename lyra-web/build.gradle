@@ -19,9 +19,14 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.springframework.security.extensions:spring-security-saml2-core:1.0.2.RELEASE"
 
+    compile "com.auth0:java-jwt:3.4.0"
+
     provided "me.moocar:logback-gelf:0.3"
 
     runtime "org.slf4j:jcl-over-slf4j"
+
+    //To ensure compatibility with Java 10
+    compile "javax.xml.bind:jaxb-api:2.3.0"
 }
 
 bootRun {

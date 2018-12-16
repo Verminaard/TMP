@@ -1,8 +1,8 @@
 package com.lyra.bean.Entry;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.lyra.bean.common.ApplicationUser;
 import com.lyra.bean.common.GenericLombokEntity;
-import com.lyra.bean.common.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -17,16 +17,18 @@ public class Entry extends GenericLombokEntity
 {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "user_id", nullable = false)
+    private ApplicationUser applicationUser;
 
-    @Column(name = "entryName")
+    @Column(name = "entryName", nullable = false)
     private String entryName;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "entryType", nullable = false)
     private EntryType entryType;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "entryStatus", nullable = false)
     private EntryStatus entryStatus;
 
     @Column(name = "rating")

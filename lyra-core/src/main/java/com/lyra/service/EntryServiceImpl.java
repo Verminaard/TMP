@@ -1,6 +1,8 @@
 package com.lyra.service;
 
 import com.lyra.bean.Entry.Entry;
+import com.lyra.bean.Entry.EntryStatus;
+import com.lyra.bean.common.ApplicationUser;
 import com.lyra.repository.EntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,9 +33,14 @@ public class EntryServiceImpl implements EntryService
     }
 
     @Override
-    public Entry saveEntry(Entry entry)
+    public Entry saveEntry(ApplicationUser user, Entry entry)
     {
-       return entryRepository.save(entry);
+        Entry newEntry = entry;
+
+        entry.setEntryStatus(EntryStatus.created);
+        newEntry.setApplicationUser(user);
+
+        return entryRepository.save(entry);
     }
 
     @Override

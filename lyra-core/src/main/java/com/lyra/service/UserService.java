@@ -1,10 +1,10 @@
 package com.lyra.service;
 
-import com.lyra.bean.common.User;
+import com.lyra.bean.common.ApplicationUser;
 
 public interface UserService
 {
 
-    User saveUser(User user);
+    ApplicationUser saveUser(ApplicationUser applicationUser);
 
 }

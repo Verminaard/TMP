@@ -1,11 +1,11 @@
 package com.lyra.repository;
 
-import com.lyra.bean.common.User;
+import com.lyra.bean.common.ApplicationUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, String>
+public interface UserRepository extends JpaRepository<ApplicationUser, String>
 {
-    User findByLogin(String login);
+    ApplicationUser findByLogin(String login);
 }
