@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import {Container, Header, Content, List, ListItem, Text, Left, Right, Icon } from 'native-base';
+import {Container, Header, Content, List, ListItem, Text, Left, Right, Icon, Button } from 'native-base';
 //import { View, Text, StyleSheet } from "react-native";
 //import { DrawerNavigator } from 'react-navigation';
 //import { Icon, Button, Container, Header, Content, Left } from 'native-base'
+import EditProblem from "ProjectOne/src/components/EditProblem/EditProblem";
+
 export default class ProblemList extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => {
@@ -14,9 +16,12 @@ export default class ProblemList extends Component {
      'Это',
     // 'Nathaniel Clyne',
      'Динамические',
-     
-     'Листы'
+
+     'Листы',
+     'Новый'
    ];
+   const {navigate} = this.props.navigation;
+
     return (
       <Container>
 
@@ -24,7 +29,13 @@ export default class ProblemList extends Component {
         <List dataArray={items}
           renderRow={(item) =>
             <ListItem>
-              <Text>{item}</Text>
+              <Text >{item}</Text>
+                <Button onPress={() => navigate('ProblemInf')}>
+                  <Text>Принять</Text>
+                </Button>
+                <Button>
+                  <Text>Отклонить</Text>
+                </Button>
             </ListItem>
           }>
         </List>

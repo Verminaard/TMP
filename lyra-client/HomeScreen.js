@@ -4,10 +4,12 @@ import React, { Component } from "react";
 //import { TabNavigator} from 'react-navigation';
 //import { TabBarBottom } from 'react-navigation';
 //import { TabView } from 'react-navigation';
-import { DrawerNavigator, createBottomTabNavigator } from 'react-navigation';
+import { DrawerNavigator, createBottomTabNavigator, StackNavigator } from 'react-navigation';
 import Map from "./src/components/map/Map";
 import ProblemList from "./src/components/list/ProblemList";
 import ListMy from "./src/components/myList/ListMy";
+import EditProblem from "ProjectOne/src/components/EditProblem/EditProblem";
+import ProblemInf from "ProjectOne/src/components/ProblemInf/ProblemInf";
 import { Platform } from 'react-native';
 //import { DrawerNavigator } from 'react-navigation';
 
@@ -19,12 +21,17 @@ export default class HomeScreen extends Component {
 headerLeft: <Icon name='menu' style={{paddingLeft: 10}} onPress={() => navigate("DrawerOpen")} />
   }
   render() {
-
+const {navigate} = this.props.navigation;
     return<MainNavigator>
     </MainNavigator>
 
   }
 }
+const Navigator = StackNavigator({
+
+  ProblemInf: {screen: ProblemInf}
+
+});
 const MainNavigator = createBottomTabNavigator({
 
   Map: {

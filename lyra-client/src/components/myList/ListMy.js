@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {Container, Header, Content, List, ListItem, Text, Left, Right, Icon } from 'native-base';
 //import { View, Text, StyleSheet } from "react-native";
 import { DrawerNavigator } from 'react-navigation';
+import EditProblem from "ProjectOne/src/components/EditProblem/EditProblem";
 //import { Icon, Button, Container, Header, Content, Left } from 'native-base'
 
 export default class ListMy extends Component {
@@ -11,6 +12,7 @@ export default class ListMy extends Component {
     }
   }
   render() {
+     const {navigate} = this.props.navigation;
     var items = [
      'Это',
     // 'Nathaniel Clyne',
@@ -24,8 +26,8 @@ export default class ListMy extends Component {
       <Content>
         <List dataArray={items}
           renderRow={(item) =>
-            <ListItem>
-              <Text>{item}</Text>
+            <ListItem onPress={() => navigate('ProblemInf')}>
+              <Text >{item}</Text>
             </ListItem>
           }>
         </List>

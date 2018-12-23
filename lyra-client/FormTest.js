@@ -1,79 +1,99 @@
-import React, {Component}  from 'react';
-import {View, Text, TextInput, TouchableHighlight} from 'react-native';
-import ValidationComponent from 'react-native-form-validator';
+import React, { Component } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
 
-export default class App extends ValidationComponent {
+import DocForm from 'react-cross-form';
+// or any pure javascript modules available in npm
+import { Card, Button } from 'react-native-elements'; // Version can be specified in package.json
+import TextInput from './TextInput';
+import CheckBox from './CheckBox';
 
-constructor(props) {
-super(props);
-// this.state = {name : "My name", email: "tibtib@gmail.com", number:"56", date: "2017-03-01"};
-this.state = { name: "", email: "", number: "", date: "" };
-}
+const FORM_FIELDS = [
+  {
+    key: 'firstName',
+    label: 'First Name',
+    required: true,
+    component: TextInput,
+    placeholder: 'Type your first name...',
+    validators: {
+      presence: { message: 'is required' },
+      length: { minimum: 3 },
+    },
+  },
+  {
+    key: 'lastName',
+    label: 'Last Name',
+    required: true,
+    component: TextInput,
+    placeholder: 'Type your last name...',
+    validators: {
+      presence: { message: 'is required' },
+      length: { minimum: 3 },
+    },
+  },
+  {
+    key: 'email',
+    label: 'Email',
+    component: TextInput,
+    placeholder: 'Type your name...',
+    validators: { email: true },
+  },
+  {
+    key: 'confirm',
+    label: 'Confirm term',
+    component: CheckBox,
+    validators: { presence: { message: 'please confirm terms' } },
+  },
+];
 
-_onPressButton = () => {
-this._validateForm();
-};
-onChangeTextName = (text) => {
-this.setState({ name: text });
-this.validate({
-name: { minlength: 3, maxlength: 7, required: true }
-});
-
-}
-onChangeTextEmail = (text) => {
-this.setState({ email: text });
-this.validate({
-email: { email: true }
-});
-
-}
-onChangeTextDigit = (text) => {
-this.setState({ number: text });
-this.validate({
-number: { numbers: true }
-});
-
-}
-onChangeTextDate = (text) => {
-this.setState({ date: text });
-this.validate({
-date: { date: 'YYYY-MM-DD' }
-});
-
-}
-
-_validateForm() {
-this.validate({
-name: { minlength: 3, maxlength: 7, required: true },
-email: { email: true },
-number: { numbers: true },
-date: { date: 'YYYY-MM-DD' }
-});
-}
-
-render() {
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      form: {
+        firstName: null,
+        lastName: null,
+        email: null,
+        confirm: null,
+      },
+      isFormValid: false,
+      validateType: 'onFocus',
+    };
+  }
+  render() {
     return (
-<View style={{ paddingVertical: 30 }}>
-  <Text>Name</Text>
-  <TextInput ref="name" onChangeText={(name) => this.onChangeTextName(name)} value={this.state.name} />
-  <Text>{(this.isFieldInError('name') && this.getErrorsInField('name'))?this.getErrorsInField('name'):''}</Text>
-
-  <Text>Email</Text>
-  <TextInput ref="email" onChangeText={(email) => this.onChangeTextEmail(email)} value={this.state.email} />
-  <Text>{(this.isFieldInError('email') && this.getErrorsInField('email'))?this.getErrorsInField('email'):''}</Text>
-  <Text>Number</Text>
-  <TextInput ref="number" onChangeText={(number) => this.onChangeTextDigit(number)} value={this.state.number} />
-  <Text>{(this.isFieldInError('number') && this.getErrorsInField('number'))?this.getErrorsInField('number'):''}</Text>
-  <Text>DoB</Text>
-  <TextInput ref="date" onChangeText={(date) => this.onChangeTextDate(date)} value={this.state.date} />
-  <Text>{(this.isFieldInError('date') && this.getErrorsInField('date'))?this.getErrorsInField('date'):''}</Text>
-
-  <TouchableHighlight onPress={this._onPressButton}>
-    <Text>Submit</Text>
-  </TouchableHighlight>
-
-
-</View>
-);
+      <View style={styles.container}>
+        <Text>This is a example of react-cross-form</Text>
+        <Card>
+          <DocForm
+            fields={FORM_FIELDS}
+            data={this.state.form}
+            onChange={({ key, updateData }) => {
+              this.setState({ form: updateData });
+              if (key === 'lastName') {
+                this.setState({ validateType: 'all' });
+              }
+            }}
+            validateType={this.state.validateType}
+            onValidateStateChanged={({ isValid }) => {
+              this.setState({ isFormValid: isValid });
+            }}
+          />
+          <Button
+            disabled={!this.state.isFormValid}
+            title={'Submit'}
+            onPress={() => alert(JSON.stringify(this.state.form))}
+          />
+        </Card>
+      </View>
+    );
+  }
 }
-}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 40,
+    alignItems: 'center',
+    backgroundColor: '#ecf0f1',
+  }
+});
