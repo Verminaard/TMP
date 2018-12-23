@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import {Container, Header, Content, List, ListItem, Text, Left, Right, Icon } from 'native-base';
 //import { View, Text, StyleSheet } from "react-native";
-import { DrawerNavigator } from 'react-navigation';
-import EditProblem from "ProjectOne/src/components/EditProblem/EditProblem";
+import { DrawerNavigator, StackNavigator } from 'react-navigation';
+import EditSelectProblem from "ProjectOne/src/components/EditSelectProblem/EditSelectProblem";
 //import { Icon, Button, Container, Header, Content, Left } from 'native-base'
 
 export default class ListMy extends Component {
@@ -26,7 +26,7 @@ export default class ListMy extends Component {
       <Content>
         <List dataArray={items}
           renderRow={(item) =>
-            <ListItem onPress={() => navigate('ProblemInf')}>
+            <ListItem onPress={() => navigate('EditSelectProblem')}>
               <Text >{item}</Text>
             </ListItem>
           }>
@@ -35,6 +35,7 @@ export default class ListMy extends Component {
         </Container>);
   }
 }
+
 /*import { View, Text, StyleSheet } from "react-native";
 import { DrawerNavigator } from 'react-navigation';
 import { Icon, Button, Container, Header, Content, Left } from 'native-base'

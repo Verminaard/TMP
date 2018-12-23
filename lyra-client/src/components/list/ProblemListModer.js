@@ -5,7 +5,7 @@ import {Container, Header, Content, List, ListItem, Text, Left, Right, Icon, But
 //import { Icon, Button, Container, Header, Content, Left } from 'native-base'
 import ProblemInf from "ProjectOne/src/components/ProblemInf/ProblemInf";
 
-export default class ProblemList extends Component {
+export default class ProblemListModer extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => {
       return <Icon name='md-list' stlye={{ color: tintColor}} />
@@ -30,7 +30,12 @@ export default class ProblemList extends Component {
           renderRow={(item) =>
             <ListItem onPress={() => navigate('ProblemInf')}>
               <Text >{item}</Text>
-                
+                <Button >
+                  <Text>Принять</Text>
+                </Button>
+                <Button>
+                  <Text>Отклонить</Text>
+                </Button>
             </ListItem>
           }>
         </List>
@@ -38,22 +43,3 @@ export default class ProblemList extends Component {
         </Container>);
   }
 }
-
-
-/*class List extends Component {
-    render () {
-      return (
-        <Container>
-          <Header>
-              <Left>
-                <Icon name='menu' onPress={() => this.props.navigation.navigate('DrawerOpen')} />
-              </Left>
-            </Header>
-              <Content>
-            <Text>List</Text>
-              </Content>
-        </Container>
-      );
-    }
-  }
-export default List;*/

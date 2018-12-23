@@ -4,11 +4,7 @@ import {View, StyleSheet,Image } from "react-native";
 import { DrawerNavigator } from 'react-navigation';
 //import { Icon, Button, Container, Header, Content, Left } from 'native-base'
 export default class EditSelectProblem extends Component {
-  static navigationOptions = {
-    tabBarIcon: ({ tintColor }) => {
-      return <Icon name='md-home' stlye={{ color: tintColor}} />
-    }
-  }
+
   constructor(props) {
     super(props);
    this.state = {label : "Тут заголовок", type:"ТИП", inf : "инф", status : "статус"}
