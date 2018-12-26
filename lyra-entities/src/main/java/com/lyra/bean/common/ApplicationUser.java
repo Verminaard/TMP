@@ -1,8 +1,7 @@
 package com.lyra.bean.common;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,8 +14,11 @@ import java.util.StringJoiner;
 @Entity
 @Table(name = "Users")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString(callSuper = true, of = {"login"})
 @EqualsAndHashCode(of = {"login", "email"}, callSuper = true)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ApplicationUser extends GenericLombokEntity implements UserDetails
 {
 

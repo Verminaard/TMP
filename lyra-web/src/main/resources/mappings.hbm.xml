@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+   "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="ru.vetrf.irena.bean"
+	default-access="property" default-lazy="true">
+	
+	
+	<!-- Пользователи и права доступа -->
+	<class name="com.lyra.bean.common.ApplicationUser" table="Users">
+      <id name="id" length="36">
+         <generator class="org.hibernate.id.UUIDGenerator"/>
+      </id>
+      <property name="login" column="login" type="string" length="255" />
+      <property name="fio" column="fio" type="string" length="255" />
+      <property name="accountNonExpired" type="boolean" not-null="true">
+         <column name="isAccountNonExpired" default="true" />
+      </property>
+      <property name="accountNonLocked" type="boolean" not-null="true">
+         <column name="isAccountNonLocked" default="true" />
+      </property>
+      <property name="credentialsNonExpired" type="boolean" not-null="true">
+         <column name="isCredentialsNonExpired" default="true" />
+      </property>
+      <property name="enabled" type="boolean" not-null="true">
+         <column name="isEnabled" default="true" />
+      </property>
+      <set name="authorities" table="UserAuthority" cascade="all" lazy="false">
+         <key>
+            <column name="user_id" length="36" />
+         </key>
+         <composite-element class="com.lyra.bean.common.UserAuthority">
+            <property name="name" column="authority" length="255" />
+         </composite-element>
+      </set>
+   </class>
+</hibernate-mapping>

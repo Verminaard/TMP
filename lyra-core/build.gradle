@@ -7,8 +7,8 @@ dependencies {
     compile "org.springframework.security:spring-security-core"
 
     compile "com.fasterxml.jackson.core:jackson-annotations"
-    // Если потребуется обновить версию dozer, нужно так же обновить её в файле spring-devtools.properties
-    compile "com.github.dozermapper:dozer-core:6.1.0"
+    //Мой любимый дозер
+    compile "net.sf.dozer:dozer:5.5.1"
 
     provided "org.springframework.security.extensions:spring-security-saml2-core:1.0.2.RELEASE"
 
