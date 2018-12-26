@@ -14,12 +14,48 @@ import { Platform } from 'react-native';
 //import { DrawerNavigator } from 'react-navigation';
 
 import { Text, Icon, Button, Container, Header, Content, Left } from 'native-base'
+import {SERVER_ADRES} from "./src/const/constants";
 
 export default class HomeScreen extends Component {
 
+  constructor(){
+    super();
+      this.state = {
+          entryList: {}
+      };
+
+      this.loadEntry = this.loadEntry.bind(this);
+  }
+
+  componentDidMount() {
+  this.loadEntry();
+  }
+
+  loadEntry(){
+      fetch(SERVER_ADRESS + '/entry/list')
+          .then(
+              function(response) {
+                  if (response.status !== 200) {
+                      console.log('Looks like there was a problem. Status Code: ' +
+                          response.status);
+                      return;
+                  }
+
+                  // Examine the text in the response
+                  response.json().then(function(data) {
+                      console.log(data);
+                  });
+              }
+          )
+          .catch(function(err) {
+              console.log('Fetch Error :-S', err);
+          });
+  }
+
   static navigationOptions = {
 headerLeft: <Icon name='menu' style={{paddingLeft: 10}} onPress={() => navigate("DrawerOpen")} />
-  }
+  };
+
   render() {
 const {navigate} = this.props.navigation;
     return<MainNavigator>
@@ -27,11 +63,13 @@ const {navigate} = this.props.navigation;
 
   }
 }
+
 const Navigator = StackNavigator({
 
   ProblemInf: {screen: ProblemInf}
 
 });
+
 const MainNavigator = createBottomTabNavigator({
 
   Map: {
@@ -44,8 +82,6 @@ const MainNavigator = createBottomTabNavigator({
     screen: ListMy
 
 }}, {
-  //tabBarPosition: 'bottom',
-//  animationEnabled: true,
   swipeEnabled: true,
   navigationOptions: {
   showIcon: false,
@@ -53,41 +89,3 @@ const MainNavigator = createBottomTabNavigator({
  }
 });
 
-/*class HomeScreen extends Component {
-    render () {
-      return (
-        <Container>
-          <Header>
-              <Left>
-                <Icon name='menu' onPress={() => this.props.navigation.navigate('DrawerOpen')} />
-              </Left>
-            </Header>
-              <Content>
-            <Text>Home Screen</Text>
-              </Content>
-        </Container>
-      );
-    }
-  }
-export default HomeScreen;
-/*import React, { Component } from 'react';
-import { Container, Header, Content, Form, Item, Input } from 'native-base';
-export default class HomeScreen extends Component {
-  render() {
-    return (
-      <Container>
-        <Header />
-        <Content>
-          <Form>
-            <Item>
-              <Input placeholder="Username" />
-            </Item>
-            <Item last>
-              <Input placeholder="Password" />
-            </Item>
-          </Form>
-        </Content>
-      </Container>
-    );
-  }
-}*/
