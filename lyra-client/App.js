@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { Platform, Text, View, StyleSheet } from 'react-native';
 //import { DrawerNavigator, StackNavigator, TabNavigator } from 'react-navigation';
 //import { TabNavigator } from 'react-navigation';
-import { StackNavigator,DrawerNavigator } from 'react-navigation';
+import { StackNavigator, DrawerNavigator } from 'react-navigation';
+//import Drawer from 'react-native-drawer';
 import HomeScreen from "./HomeScreen";
 import SettingsScreen from "./SettingsScreen";
 import Map from "./src/components/map/Map";
@@ -12,14 +13,21 @@ import ListMy from "./src/components/myList/ListMy";
 import LogInPage from "./src/components/login/LogInPage";
 import RegisterPage from "./src/components/register/RegisterPage";
 import EditAccountPage from "ProjectOne/src/components/editPage/EditAccountPage";
+import AddProblem from "ProjectOne/src/components/addProblem/AddProblem";
+import EditProblem from "ProjectOne/src/components/EditProblem/EditProblem";
+import ProblemInf from "ProjectOne/src/components/ProblemInf/ProblemInf";
+import EditSelectProblem from "ProjectOne/src/components/EditSelectProblem/EditSelectProblem";
 import Account from "./src/components/account/Account";
-import { Container, Header, Content, Footer, FooterTab,  Left, Body, Right, Title, Icon, Button } from 'native-base';
+import SideBar from "./SideBar"
+import { Container, Header, Content, Footer, FooterTab,  Left, Body, Right, Title, Icon, Button, Drawer } from 'native-base';
 import FormTest from "./FormTest";
 const Navigator = StackNavigator({
 
   Main:{
     screen: HomeScreen
-  }
+  },
+  ProblemInf: {screen: ProblemInf}
+
 });
 const DrNv = DrawerNavigator({
 HomeScreen:{screen:Navigator},
@@ -27,10 +35,51 @@ Login: {screen: LogInPage },
 Register: {screen: RegisterPage },
 Valid: {screen: FormTest },
 Account:{screen: Account},
-EditAccountPage:{screen: EditAccountPage}
+EditAccountPage:{screen: EditAccountPage},
+AddProblem: {screen: AddProblem},
+EditProblem: {screen: EditProblem},
+EditSelectProblem: {screen: EditSelectProblem}
 });
 export default class App extends Component {
+  closeDrawer = () => {
+    this.drawer._root.close()
+  };
+  openDrawer = () => {
+    this.drawer._root.open()
+  };
+/*  render() {
+    //  const { navigate } = this.props.navigation;
+  //  const {navigate} = this.props.navigation;
+  /*const drawerStyles = {
+                drawer: { shadowColor: '#ae848b', shadowOpacity: 0.8, shadowRadius: 5},
+                main: {paddingLeft: 10}
+              }
+*/
+  /*  return (
+<Container>
+    <Header>
+      <Left>
+        <Button transparent onPress={this.openDrawer} >
+        <Icon name='menu'  />
+        </Button>
+      </Left>
+      <Body>
+        <Title>Map of records</Title>
+      </Body>
+    </Header>
 
+          <Drawer
+          openDrawerOffset={10}
+    //   styles={drawerStyles}
+            ref={(ref) => { this.drawer = ref; }}
+            content={<SideBar />}
+            onClose={() => this.closeDrawer()} >
+          </Drawer>
+
+</Container>
+    );
+  }
+}*/
   render() {
 
     return (<DrNv />

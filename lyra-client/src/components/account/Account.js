@@ -4,6 +4,8 @@ import {View, StyleSheet } from "react-native";
 import { DrawerNavigator, createBottomTabNavigator } from 'react-navigation';
 import CheckboxFormX from 'react-native-checkbox-form';
 import EditAccountPage from "ProjectOne/src/components/editPage/EditAccountPage";
+import AddProblem from "ProjectOne/src/components/addProblem/AddProblem";
+
 const mockData = [
     {
         label: 'Problems',
@@ -47,23 +49,30 @@ export default class Account extends Component {
                 </ListItem>
               </List>
       <View style={styles.container}>
-          <View style={{ marginVertical: 10, backgroundColor: "#ffffff" }} >
+          <View style={{
+             marginVertical: 10,
+             backgroundColor: "#ffffff"
+            }} >
             <Text center>
             Show me
             </Text>
               <CheckboxFormX
-                  style={{ width: 350 - 30 }}
+                  style={{
+                    paddingRight: 200,
+                    width: 400 - 30
+                  }}
                   dataSource={mockData}
-                 itemShowKey="label"
                  itemCheckedKey="RNchecked"
+                 itemShowKey="label"
                   iconSize={30}
+                  iconPaddingRight={20}
                   formHorizontal={false}
                   labelHorizontal={true}
                   onChecked={(item) => this._onSelect(item)}
               />
           </View>
       </View>
-          <Button block>
+          <Button block onPress={() => navigate('AddProblem')}>
             <Text>Add problem</Text>
           </Button>
           <Button block >
@@ -74,48 +83,12 @@ export default class Account extends Component {
     );
   }
 }
-/*  render() {
-    return (
-              <Container>
 
-              <Content>
-
-              <ListItem>
-                <CheckBox checked={true} />
-                  <Body>
-                    <Text>Daily Stand Up</Text>
-                  </Body>
-              </ListItem>
-              <ListItem>
-                <CheckBox checked={false} onChecked={false}/>
-                  <Body>
-                    <Text>Discussion with Client</Text>
-                  </Body>
-              </ListItem>
-              <ListItem>
-                <CheckBox checked={false} color="green"/>
-                  <Body>
-                    <Text>Finish list Screen</Text>
-                  </Body>
-              </ListItem>
-
-                <Button block>
-                      <Text>Add problem</Text>
-                </Button>
-                <Button block >
-                    <Text>Log Out</Text>
-                </Button>
-
-              </Content>
-
-              </Container>
-              );
-  }
-}*/
 const styles = StyleSheet.create ({
   container: {
      flex: 1,
      alignItems: 'center',
      justifyContent: 'center',
-   },
+     backgroundColor: '#95D3BF'
+},
 })

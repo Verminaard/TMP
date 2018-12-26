@@ -14,8 +14,8 @@ export default class RegisterPage extends ValidationComponent {
   }
   constructor(props) {
     super(props);
-  //  this.state = {login : "login322", password : "password", name : "MyName", surname : "MySurName", patronymic : "empty", email: "empty"}
-  this.state = {login : "", password : "", name : "", surname : "", patronymic : "", email: ""}
+   this.state = {login : "login322", password : "password", name : "MyName", surname : "MySurName", patronymic : "empty", email: "empty"}
+  //this.state = {login : "", password : "", name : "", surname : "", patronymic : "", email: ""}
   //this.state = { form: {login : null, password : null, name : null, surname : null, patronymic : null, email: null}, isFormValid: true}
   }
   _onPressButton = () => {
@@ -60,7 +60,7 @@ export default class RegisterPage extends ValidationComponent {
                 </Form>
 
                 <Button block
-                disabled={!this.state.isFormValid}
+              //  disabled={!this.state.isFormValid}
                 onPress={this._onPressButton}>
                     <Text>Register</Text>
                 </Button>
