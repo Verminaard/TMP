@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import {Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right } from 'native-base';
+import { Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right, Header, Toast, Root } from 'native-base';
 import {View, StyleSheet } from "react-native";
 import { DrawerNavigator } from 'react-navigation';
-//import { Icon, Button, Container, Header, Content, Left } from 'native-base'
+
 import RegisterPage from "ProjectOne/src/components/register/RegisterPage";
 export default class LogInPage extends Component {
   static navigationOptions = {
@@ -10,58 +10,78 @@ export default class LogInPage extends Component {
       return <Icon name='md-home' stlye={{ color: tintColor}} />
     }
   }
+  constructor(props) {
+    super(props);
+    this.state = {
+      showToast: false
+    };
+  }
+
   render() {
      const {navigate} = this.props.navigation;
-    return (<Container>
-              <Content>
-                <Form>
+    return (<Container >
+              <Content style = {styles.container}>
+              <Header style = {styles.header}>
+              <Left style={{flex:1}}>
+              <Icon name="menu" style = {styles.icon} onPress={() => this.props.navigation.openDrawer()}/>
+              </Left>
+              </Header>
+                <Form >
                   <Item>
-                    <Input placeholder="Username" />
+                    <Input placeholder="Логин или e-mail" />
                   </Item>
                   <Item last>
-                    <Input placeholder="Password" />
+                    <Input placeholder="Пароль" />
                   </Item>
                 </Form>
-
-                <Button block onPress={() => navigate('HomeScreen')}>
-                      <Text>log In</Text>
+                <View style={styles.buttons}>
+                <Right>
+                <Button  style={styles.logB} onPress={() => navigate('Домашняя страница')}>
+                      <Text>Войти</Text>
                 </Button>
-                <Button block onPress={() => navigate('Register')}>
-                    <Text>Register</Text>
+                </Right>
+                <Text> ИЛИ </Text>
+                  <Right>
+                <Button  style={styles.regB} onPress={() => navigate('Регистрация')}>
+                    <Text>Зарегистрироваться</Text>
                 </Button>
-
+                  </Right>
+                    </View>
               </Content>
 
     </Container>);
   }
+
 }
 const styles = StyleSheet.create ({
   container: {
      flex: 1,
+
+   },
+   buttons: {
+     flex:1,
+     margin: 0,
      alignItems: 'center',
      justifyContent: 'center',
    },
-})
+   icon: {
+       paddingRight: 350,
+       paddingTop:12,
+       color: '#F8F8F8'
+    },
+   header:{
+     backgroundColor: '#4682B4'
+   },
+   logB:{
+     flex: 1,
 
-//
-/*import { View, Text, StyleSheet } from "react-native";
-import { DrawerNavigator } from 'react-navigation';
-import { Icon, Button, Container, Header, Content, Left } from 'native-base'
-class ListMy extends Component {
-    render () {
-      return (
-        <Container>
-          <Header>
-              <Left>
-                <Icon name='menu' onPress={() => this.props.navigation.navigate('DrawerOpen')} />
-              </Left>
-            </Header>
-              <Content>
-            <Text>myList</Text>
-              </Content>
-        </Container>
-      );
-    }
-  }
-export default ListMy;
-*/
+     backgroundColor:'#4682B4',
+     alignItems:'center'
+   },
+   regB:{
+     flex: 1,
+     backgroundColor:'#32CD32',
+     alignItems:'center'
+
+   }
+})

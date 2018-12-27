@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-
 import DocForm from 'react-cross-form';
-// or any pure javascript modules available in npm
-import { Card, Button } from 'react-native-elements'; // Version can be specified in package.json
+import { Card, Button } from 'react-native-elements';
 import TextInput from './TextInput';
 import CheckBox from './CheckBox';
-
 const FORM_FIELDS = [
   {
     key: 'firstName',

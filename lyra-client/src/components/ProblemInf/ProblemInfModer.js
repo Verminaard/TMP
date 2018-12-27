@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right,Thumbnail,Label } from 'native-base';
 import {View, StyleSheet, Image } from "react-native";
 import { DrawerNavigator } from 'react-navigation';
-export default class ProblemInf extends Component {
+export default class ProblemInfModer extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => {
       return <Icon name='md-home' stlye={{ color: tintColor}} />
@@ -34,16 +34,39 @@ export default class ProblemInf extends Component {
                     <Input disabled={true} value={this.state.status}/>
                   </Item>
                 </Form>
-
+                <View style={styles.buttons}>
+                <Left>
+                  <Button style={styles.accB} onPress={() => navigate('HomeScreen')}>
+                        <Text>Принять</Text>
+                  </Button>
+                    </Left>
+                  <Right>
+                  <Button style={styles.dropB} onPress={() => navigate('HomeScreen')}>
+                        <Text>Отклонить</Text>
+                  </Button>
+                  </Right>
+                  </View>
               </Content>
 
     </Container>);
   }
 }
 const styles = StyleSheet.create ({
-  container: {
-     flex: 1,
-     alignItems: 'center',
-     justifyContent: 'center',
+   buttons: {
+     flex:1,
+     margin: 20,
+     flexDirection: 'row',
+
    },
+   accB:{
+     flex: 1,
+     backgroundColor:'#32CD32',
+     alignItems:'center'
+   },
+   dropB:{
+     flex: 1,
+     backgroundColor:'red',
+     alignItems:'center'
+
+   }
 })

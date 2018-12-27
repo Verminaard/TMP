@@ -11,6 +11,7 @@
     "react": "16.3.1",
     "react-cross-form": "^1.2.12",
     "react-native": "^0.57.7",
+    "react-native-action-button": "^2.8.5",
     "react-native-checkbox-form": "^1.1.5",
     "react-native-drawer": "^2.5.1",
     "react-native-elements": "^0.19.1",

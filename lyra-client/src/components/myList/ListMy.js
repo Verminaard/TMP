@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import {Container, Header, Content, List, ListItem, Text, Left, Right, Icon } from 'native-base';
-//import { View, Text, StyleSheet } from "react-native";
+import {Container, Header, Content, List, ListItem, Text, Left, Right, Icon, Button,Body } from 'native-base';
+import {View, StyleSheet,Image } from "react-native";
 import { DrawerNavigator, StackNavigator } from 'react-navigation';
 import EditSelectProblem from "ProjectOne/src/components/EditSelectProblem/EditSelectProblem";
-//import { Icon, Button, Container, Header, Content, Left } from 'native-base'
 
 export default class ListMy extends Component {
   static navigationOptions = {
@@ -12,22 +11,36 @@ export default class ListMy extends Component {
     }
   }
   render() {
-     const {navigate} = this.props.navigation;
+    const uri = "https://facebook.github.io/react-native/docs/assets/favicon.png";
     var items = [
-     'Это',
+     'тут',
     // 'Nathaniel Clyne',
-     'Динамические',
+     'мои',
 
-     'Листы'
+     'Записи'
    ];
+   var describe = [
+    'Сюда описание',
+  ];
+   const {navigate} = this.props.navigation;
     return (
-      <Container>
-
-      <Content>
+      <Container >
+      <Content >
         <List dataArray={items}
           renderRow={(item) =>
             <ListItem onPress={() => navigate('EditSelectProblem')}>
+            <Left>
+            <View style={{flex:1}}>
+            <Image source={{uri: uri}}
+                 style={{width: 100, height:100}} />
+            </View>
+            </Left>
+            <Body style={{flex:2}}>
               <Text >{item}</Text>
+              <View style={{flex:2}}>
+                <Text note >{describe}</Text>
+              </View>
+              </Body>
             </ListItem>
           }>
         </List>
@@ -35,25 +48,3 @@ export default class ListMy extends Component {
         </Container>);
   }
 }
-
-/*import { View, Text, StyleSheet } from "react-native";
-import { DrawerNavigator } from 'react-navigation';
-import { Icon, Button, Container, Header, Content, Left } from 'native-base'
-class ListMy extends Component {
-    render () {
-      return (
-        <Container>
-          <Header>
-              <Left>
-                <Icon name='menu' onPress={() => this.props.navigation.navigate('DrawerOpen')} />
-              </Left>
-            </Header>
-              <Content>
-            <Text>myList</Text>
-              </Content>
-        </Container>
-      );
-    }
-  }
-export default ListMy;
-*/

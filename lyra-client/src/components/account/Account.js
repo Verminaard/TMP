@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right,CheckBox,Body, List, ListItem, Thumbnail } from 'native-base';
+import {Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right,CheckBox,Body, List, ListItem, Thumbnail,Header } from 'native-base';
 import {View, StyleSheet } from "react-native";
 import { DrawerNavigator, createBottomTabNavigator } from 'react-navigation';
 import CheckboxFormX from 'react-native-checkbox-form';
@@ -8,15 +8,15 @@ import AddProblem from "ProjectOne/src/components/addProblem/AddProblem";
 
 const mockData = [
     {
-        label: 'Problems',
+        label: 'Проблемы',
         value: 'one'
     },
     {
-        label: 'Proposal',
+        label: 'Предложения',
         value: 'two'
     },
     {
-        label: 'MyList',
+        label: 'Мои записи',
         value: 'three'
     },
 ];
@@ -29,7 +29,9 @@ export default class Account extends Component {
       const {navigate} = this.props.navigation;
     return (
     <Container>
-
+    <Header style={styles.header}>
+    <Icon name="menu" style = {styles.icon} onPress={() => this.props.navigation.openDrawer()}/>
+    </Header>
     <Content>
 
             <List>
@@ -38,12 +40,12 @@ export default class Account extends Component {
                     <Thumbnail square source={{ uri: 'Image URL' }} />
                   </Left>
                   <Body>
-                    <Text>Account name</Text>
+                    <Text>ЛОГИН</Text>
                       <Text note numberOfLines={1}> </Text>
                   </Body>
                   <Right>
                     <Button transparent onPress={() => navigate('EditAccountPage')}>
-                      <Text>Edit</Text>
+                      <Text>Изменить</Text>
                     </Button>
                   </Right>
                 </ListItem>
@@ -73,10 +75,10 @@ export default class Account extends Component {
           </View>
       </View>
           <Button block onPress={() => navigate('AddProblem')}>
-            <Text>Add problem</Text>
+            <Text>Добавить проблему</Text>
           </Button>
           <Button block >
-            <Text>Log Out</Text>
+            <Text>Выход</Text>
           </Button>
     </Content>
     </Container>
@@ -91,4 +93,12 @@ const styles = StyleSheet.create ({
      justifyContent: 'center',
      backgroundColor: '#95D3BF'
 },
+icon: {
+    paddingRight: 350,
+    paddingTop:12,
+    color: '#F8F8F8'
+ },
+ header:{
+   backgroundColor: '#4682B4'
+ }
 })

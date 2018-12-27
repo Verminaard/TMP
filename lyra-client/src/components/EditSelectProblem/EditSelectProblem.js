@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import {Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right,Label } from 'native-base';
+import {Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right,Label,Body } from 'native-base';
 import {View, StyleSheet,Image } from "react-native";
 import { DrawerNavigator } from 'react-navigation';
-//import { Icon, Button, Container, Header, Content, Left } from 'native-base'
 export default class EditSelectProblem extends Component {
 
   constructor(props) {
@@ -15,9 +14,9 @@ export default class EditSelectProblem extends Component {
 
     return (<Container>
               <Content>
-              <Form>
+              <Form style= {{alignItems:'center'}}>
                 <Image source={{uri: uri}}
-                     style={{width: 100, height:100,  }} />
+                     style={{width: 300, height:300  }} />
                   <Item floatingLabel>
                     <Label>Заголовок:</Label>
                     <Input  onChangeText={(label) => this.setState({label})} value={this.state.label}/>
@@ -36,22 +35,40 @@ export default class EditSelectProblem extends Component {
                   <Input onChangeText={(status) => this.setState({status})} value={this.state.status}/>
                 </Item>
               </Form>
-                <Button block onPress={() => navigate('HomeScreen')}>
+
+              <View style={styles.buttons}>
+              <Left>
+                <Button style={styles.editB} onPress={() => navigate('HomeScreen')}>
                       <Text>Изменить фото</Text>
                 </Button>
-                <Button block onPress={() => navigate('HomeScreen')}>
+                  </Left>
+                <Right>
+                <Button style={styles.saveB} onPress={() => navigate('HomeScreen')}>
                       <Text>Сохранить</Text>
                 </Button>
-
+                </Right>
+                </View>
               </Content>
 
     </Container>);
   }
 }
 const styles = StyleSheet.create ({
-  container: {
-     flex: 1,
-     alignItems: 'center',
-     justifyContent: 'center',
+   buttons: {
+     flex:1,
+     margin: 20,
+     flexDirection: 'row',
+
    },
+   editB:{
+     flex: 1,
+     backgroundColor:'#4682B4',
+     alignItems:'center'
+   },
+   saveB:{
+     flex: 1,
+     backgroundColor:'#32CD32',
+     alignItems:'center'
+
+   }
 })

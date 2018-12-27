@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import {Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right } from 'native-base';
-import {View, StyleSheet } from "react-native";
+import {Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right,Header } from 'native-base';
+import {View, StyleSheet,Image  } from "react-native";
 import { DrawerNavigator } from 'react-navigation';
-//import { Icon, Button, Container, Header, Content, Left } from 'native-base'
 export default class AddProblem extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => {
@@ -12,6 +11,11 @@ export default class AddProblem extends Component {
   render() {
      const {navigate} = this.props.navigation;
     return (<Container>
+      <Header style = {styles.header}>
+      <Left style={{flex:1}}>
+      <Icon name="menu" style = {styles.icon} onPress={() => this.props.navigation.openDrawer()}/>
+      </Left>
+      </Header>
               <Content>
                 <Form>
                   <Item>
@@ -24,8 +28,9 @@ export default class AddProblem extends Component {
                     <Input placeholder="Описание" />
                   </Item>
                 </Form>
-
-                <Button block onPress={() => navigate('HomeScreen')}>
+                <Image source={{uri: 'URL'}}
+                     style={{width: 300, height:300 }} />
+                <Button style={styles.addB} onPress={() => navigate('Изменение фото проблемы')}>
                       <Text>Добавить фото</Text>
                 </Button>
 
@@ -36,9 +41,24 @@ export default class AddProblem extends Component {
   }
 }
 const styles = StyleSheet.create ({
-  container: {
-     flex: 1,
-     alignItems: 'center',
-     justifyContent: 'center',
+  buttons: {
+    flex:1,
+    margin: 20,
+  alignItems:'center'
+
+  },
+  addB:{
+    flex: 1,
+    backgroundColor:'#4682B4',
+    alignItems:'center'
+  },
+
+  icon: {
+      paddingRight: 350,
+      paddingTop:12,
+      color: '#F8F8F8'
    },
+   header:{
+     backgroundColor: '#4682B4'
+   }
 })

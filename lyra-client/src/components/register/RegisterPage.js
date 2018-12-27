@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right } from 'native-base';
+import {Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right,Header } from 'native-base';
 import {View, StyleSheet } from "react-native";
 import { DrawerNavigator } from 'react-navigation';
 import ValidationComponent from 'react-native-form-validator';
@@ -32,26 +32,31 @@ export default class RegisterPage extends ValidationComponent {
   render() {
      const {navigate} = this.props.navigation;
     return (<Container>
+      <Header style = {styles.header}>
+      <Left style={{flex:1}}>
+      <Icon name="menu" style = {styles.icon} onPress={() => this.props.navigation.openDrawer()}/>
+      </Left>
+      </Header>
               <Content>
                 <Form>
                   <Item>
-                    <Input placeholder="Login*" onChangeText={(login) => this.setState({login})} value={this.state.login}/>
+                    <Input placeholder="Логин*" onChangeText={(login) => this.setState({login})} value={this.state.login}/>
                   </Item>
                   <Text>{(this.isFieldInError('login') && this.getErrorsInField('login'))?this.getErrorsInField('login'):''}</Text>
                   <Item>
-                    <Input placeholder="Password*" onChangeText={(password) => this.setState({password})} value={this.state.password}/>
+                    <Input placeholder="Пароль*" onChangeText={(password) => this.setState({password})} value={this.state.password}/>
                   </Item>
                     <Text>{(this.isFieldInError('password') && this.getErrorsInField('password'))?this.getErrorsInField('password'):''}</Text>
                   <Item>
-                    <Input placeholder="Name*" onChangeText={(name) => this.setState({name})} value={this.state.name}/>
+                    <Input placeholder="Имя*" onChangeText={(name) => this.setState({name})} value={this.state.name}/>
                   </Item>
                     <Text>{(this.isFieldInError('name') && this.getErrorsInField('name'))?this.getErrorsInField('name'):''}</Text>
                   <Item>
-                    <Input placeholder="Surname*" onChangeText={(surname) => this.setState({surname})} value={this.state.surname}/>
+                    <Input placeholder="Фамилия*" onChangeText={(surname) => this.setState({surname})} value={this.state.surname}/>
                   </Item>
                     <Text>{(this.isFieldInError('surname') && this.getErrorsInField('surname'))?this.getErrorsInField('surname'):''}</Text>
                   <Item>
-                    <Input placeholder="Patronymic" onChangeText={(patronymic) => this.setState({patronymic})} value={this.state.patronymic}/>
+                    <Input placeholder="Отчество" onChangeText={(patronymic) => this.setState({patronymic})} value={this.state.patronymic}/>
                   </Item>
                   <Item>
                     <Input placeholder="eMail" onChangeText={(email) => this.setState({email})} value={this.state.email}/>

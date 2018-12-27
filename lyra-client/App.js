@@ -1,14 +1,14 @@
 
 import React, { Component } from 'react';
-import { Platform, Text, View, StyleSheet } from 'react-native';
-//import { DrawerNavigator, StackNavigator, TabNavigator } from 'react-navigation';
-//import { TabNavigator } from 'react-navigation';
+import { ScrollView,Platform, Text, View, StyleSheet } from 'react-native';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 //import Drawer from 'react-native-drawer';
 import HomeScreen from "./HomeScreen";
+import HomeScreenModer from "./HomeScreenModer";
 import SettingsScreen from "./SettingsScreen";
 import Map from "./src/components/map/Map";
 import ProblemList from "./src/components/list/ProblemList";
+import ProblemListModer from "./src/components/list/ProblemListModer";
 import ListMy from "./src/components/myList/ListMy";
 import LogInPage from "./src/components/login/LogInPage";
 import RegisterPage from "./src/components/register/RegisterPage";
@@ -21,24 +21,37 @@ import Account from "./src/components/account/Account";
 import SideBar from "./SideBar"
 import { Container, Header, Content, Footer, FooterTab,  Left, Body, Right, Title, Icon, Button, Drawer } from 'native-base';
 import FormTest from "./FormTest";
+import MapTry from "./MapTry";
 const Navigator = StackNavigator({
 
   Main:{
-    screen: HomeScreen
-  },
-  ProblemInf: {screen: ProblemInf}
-
+    screen: HomeScreen,
+    navigationOptions:  {
+  headerLeft: ({ tintColor }) => {
+    return <Icon name='home' style={{paddingLeft: 10}} onPress={() => this.props.navigation.openDrawer()} />
+  }
+}
+}
 });
+
+
 const DrNv = DrawerNavigator({
-HomeScreen:{screen:Navigator},
-Login: {screen: LogInPage },
-Register: {screen: RegisterPage },
-Valid: {screen: FormTest },
-Account:{screen: Account},
-EditAccountPage:{screen: EditAccountPage},
-AddProblem: {screen: AddProblem},
-EditProblem: {screen: EditProblem},
-EditSelectProblem: {screen: EditSelectProblem}
+'Домашняя страница': {screen: HomeScreen,
+
+ },
+ 'Домашняя страница модератора': {screen: HomeScreenModer,
+
+  },
+Логин: {screen: LogInPage },
+'Регистрация': {screen: RegisterPage },
+//'Valid': {screen: FormTest },
+'Аккаунт':{screen: Account},
+//'Изменение аккаунта':{screen: EditAccountPage},
+'Добавление проблемы': {screen: AddProblem},
+'Изменение фото проблемы': {screen: EditProblem},
+//'Изменение выбранной проблемы': {screen: EditSelectProblem},
+//'Модерация проблемы':{screen: ProblemListModer},
+'MapTry':{screen:MapTry}
 });
 export default class App extends Component {
   closeDrawer = () => {
@@ -47,15 +60,15 @@ export default class App extends Component {
   openDrawer = () => {
     this.drawer._root.open()
   };
-/*  render() {
+  /*render() {
     //  const { navigate } = this.props.navigation;
   //  const {navigate} = this.props.navigation;
-  /*const drawerStyles = {
+const drawerStyles = {
                 drawer: { shadowColor: '#ae848b', shadowOpacity: 0.8, shadowRadius: 5},
                 main: {paddingLeft: 10}
               }
-*/
-  /*  return (
+
+    return (
 <Container>
     <Header>
       <Left>
@@ -72,7 +85,7 @@ export default class App extends Component {
           openDrawerOffset={10}
     //   styles={drawerStyles}
             ref={(ref) => { this.drawer = ref; }}
-            content={<SideBar />}
+            content={<Navigator />}
             onClose={() => this.closeDrawer()} >
           </Drawer>
 
@@ -80,13 +93,12 @@ export default class App extends Component {
     );
   }
 }*/
-  render() {
 
-    return (<DrNv />
+ render() {
 
-    //  <Navigator>
+    return (
 
-  //    </Navigator>
+       <DrNv />
 
     );
 

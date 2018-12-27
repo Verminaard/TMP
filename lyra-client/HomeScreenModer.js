@@ -6,11 +6,12 @@ import ProblemList from "./src/components/list/ProblemList";
 import ListMy from "./src/components/myList/ListMy";
 import EditSelectProblem from "ProjectOne/src/components/EditSelectProblem/EditSelectProblem";
 import ProblemInf from "ProjectOne/src/components/ProblemInf/ProblemInf";
+import ProblemInfModer from "ProjectOne/src/components/ProblemInf/ProblemInfModer";
 import { Platform } from 'react-native';
 
-import { Text, Icon, Button, Container, Header, Content, Left,Label,Right } from 'native-base'
+import { Text, Icon, Button, Container, Header, Content, Left,Label } from 'native-base'
 
-export default class HomeScreen extends Component {
+export default class HomeScreenModer extends Component {
 
   render() {
 const {navigate} = this.props.navigation;
@@ -45,7 +46,7 @@ const ProblemListNavigator = StackNavigator(
   List: {
     screen: ProblemList
 },
-ProblemInf: {screen: ProblemInf}
+ProblemInf: {screen: ProblemInfModer}
 },
 {
   headerMode: 'none',
@@ -63,10 +64,7 @@ const MainNavigator = createBottomTabNavigator({
     screen: ProblemListNavigator,
 
   },
-  'МОИ ЗАПИСИ': {
-    screen: ListMyNavigator,
-
-}},
+  },
 {
 
   tabBarOptions: {
@@ -80,15 +78,16 @@ const MainNavigator = createBottomTabNavigator({
         paddingVertical: 15
       },
   style: {
-            backgroundColor: '#4682B4'
+            backgroundColor: '#4682B4' // TabBar background
         }
 }
 });
 const styles = StyleSheet.create ({
   icon: {
+
       color: '#F8F8F8'
    },
    header:{
-     backgroundColor: '#4682B4'
+  backgroundColor: '#4682B4'
    }
 })
