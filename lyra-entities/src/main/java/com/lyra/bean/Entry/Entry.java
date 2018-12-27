@@ -3,6 +3,7 @@ package com.lyra.bean.Entry;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.lyra.bean.common.ApplicationUser;
 import com.lyra.bean.common.GenericLombokEntity;
+import com.lyra.bean.geo.Geotag;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -30,6 +31,10 @@ public class Entry extends GenericLombokEntity
     @Enumerated(EnumType.STRING)
     @Column(name = "entryStatus", nullable = false)
     private EntryStatus entryStatus;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    private Geotag geotag;
 
     @Column(name = "rating")
     private int rating;

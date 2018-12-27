@@ -20,7 +20,8 @@
     "react-native-maps": "^0.22.1",
     "react-native-picker-checkbox": "^1.0.8",
     "react-native-sidebar": "^0.3.0",
-    "react-navigation": "^2.18.3"
+    "react-navigation": "^2.18.3",
+    "jwt-decode": "2.2.0"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",

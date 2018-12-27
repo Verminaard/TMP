@@ -5,6 +5,9 @@ import { DrawerNavigator, createBottomTabNavigator } from 'react-navigation';
 import CheckboxFormX from 'react-native-checkbox-form';
 import EditAccountPage from "ProjectOne/src/components/editPage/EditAccountPage";
 import AddProblem from "ProjectOne/src/components/addProblem/AddProblem";
+import AuthService from '../../auth/AuthService';
+import withAuth from '../../components/hocs/withAuth';
+const Auth = new AuthService();
 
 const mockData = [
     {
@@ -20,7 +23,18 @@ const mockData = [
         value: 'three'
     },
 ];
-export default class Account extends Component {
+
+class Account extends Component {
+    constructor() {
+        super();
+        this.handleLogout = this.handleLogout.bind(this);
+    }
+
+    handleLogout(){
+        Auth.logout();
+        this.props.history.replace('/login');
+    }
+
   _onSelect = ( item ) => {
       console.log(item);
     };
@@ -41,7 +55,7 @@ export default class Account extends Component {
                   </Left>
                   <Body>
                     <Text>ЛОГИН</Text>
-                      <Text note numberOfLines={1}> </Text>
+                      <Text note numberOfLines={1}>{this.props.user}</Text>
                   </Body>
                   <Right>
                     <Button transparent onPress={() => navigate('EditAccountPage')}>
@@ -77,7 +91,7 @@ export default class Account extends Component {
           <Button block onPress={() => navigate('AddProblem')}>
             <Text>Добавить проблему</Text>
           </Button>
-          <Button block >
+          <Button block onClick={this.handleLogout}>
             <Text>Выход</Text>
           </Button>
     </Content>
@@ -85,6 +99,8 @@ export default class Account extends Component {
     );
   }
 }
+
+export default withAuth(Account);
 
 const styles = StyleSheet.create ({
   container: {
@@ -101,4 +117,4 @@ icon: {
  header:{
    backgroundColor: '#4682B4'
  }
-})
+});

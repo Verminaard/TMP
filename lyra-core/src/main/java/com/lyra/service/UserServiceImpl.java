@@ -48,4 +48,10 @@ public class UserServiceImpl implements UserService, UserDetailsService
         }
         return applicationUser;
     }
+
+    @Override
+    public ApplicationUser editUser(ApplicationUser newApplicationUser)
+    {
+        return userRepository.save(newApplicationUser);
+    }
 }

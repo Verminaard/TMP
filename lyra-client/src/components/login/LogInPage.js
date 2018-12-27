@@ -2,20 +2,57 @@ import React, { Component } from "react";
 import { Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right, Header, Toast, Root } from 'native-base';
 import {View, StyleSheet } from "react-native";
 import { DrawerNavigator } from 'react-navigation';
+import AuthService from "../../auth/AuthService";
 
 import RegisterPage from "ProjectOne/src/components/register/RegisterPage";
 export default class LogInPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: '',
+            password: '',
+            showToast: false
+        };
+
+        this.Auth = new AuthService();
+        this.handleFormChange = this.handleFormChange.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    }
+
+    componentWillMount(){
+        const {navigate} = this.props.navigation;
+        if(this.Auth.loggedIn()) {
+            navigate('HomeScreen');
+        }
+    }
+
+    handleFormChange(value, field){
+        this.setState(
+            update(this.state, {
+                    [field]: { $set: value }
+            })
+        );
+    }
+
+    handleFormSubmit(e){
+        e.preventDefault();
+        const {navigate} = this.props.navigation;
+
+        this.Auth.login(this.state.username,this.state.password)
+            .then(res =>{
+                console.log("Success!");
+                navigate('HomeScreen');
+            })
+            .catch(err =>{
+                alert(err);
+            })
+    }
+
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => {
       return <Icon name='md-home' stlye={{ color: tintColor}} />
     }
-  }
-  constructor(props) {
-    super(props);
-    this.state = {
-      showToast: false
-    };
-  }
+  };
 
   render() {
      const {navigate} = this.props.navigation;
@@ -28,15 +65,15 @@ export default class LogInPage extends Component {
               </Header>
                 <Form >
                   <Item>
-                    <Input placeholder="Логин или e-mail" />
+                    <Input placeholder="Логин..." name="username" onChange={this.handleFormChange}/>
                   </Item>
                   <Item last>
-                    <Input placeholder="Пароль" />
+                    <Input placeholder="Пароль..." name="password" onChange={this.handleFormChange}/>
                   </Item>
                 </Form>
-                <View style={styles.buttons}>
-                <Right>
-                <Button  style={styles.logB} onPress={() => navigate('Домашняя страница')}>
+                  <View style={styles.buttons}>
+                  <Right>
+                <Button style={styles.logB} block onPress= {this.handleFormSubmit()}>
                       <Text>Войти</Text>
                 </Button>
                 </Right>

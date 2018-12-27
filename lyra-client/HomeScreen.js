@@ -8,14 +8,9 @@ import EditSelectProblem from "ProjectOne/src/components/EditSelectProblem/EditS
 import ProblemInf from "ProjectOne/src/components/ProblemInf/ProblemInf";
 import { Platform } from 'react-native';
 
-<<<<<<< HEAD
 import { Text, Icon, Button, Container, Header, Content, Left,Label,Right } from 'native-base'
 
-export default class HomeScreen extends Component {
-
-=======
-import { Text, Icon, Button, Container, Header, Content, Left } from 'native-base'
-import {SERVER_ADRES} from "./src/const/constants";
+import {SERVER_ADDRESS} from "./src/const/constants";
 
 export default class HomeScreen extends Component {
 
@@ -33,7 +28,7 @@ export default class HomeScreen extends Component {
   }
 
   loadEntry(){
-      fetch(SERVER_ADRESS + '/entry/list')
+      fetch(SERVER_ADDRESS + '/entry/list')
           .then(
               function(response) {
                   if (response.status !== 200) {
@@ -57,7 +52,6 @@ export default class HomeScreen extends Component {
 headerLeft: <Icon name='menu' style={{paddingLeft: 10}} onPress={() => navigate("DrawerOpen")} />
   };
 
->>>>>>> b37e4eba721b19c2c78bfc54d7a3d31e8e5d504f
   render() {
 const {navigate} = this.props.navigation;
     return(
@@ -73,89 +67,69 @@ const {navigate} = this.props.navigation;
 );
   }
 }
-<<<<<<< HEAD
-=======
-
-const Navigator = StackNavigator({
-
-  ProblemInf: {screen: ProblemInf}
-
-});
-
-const MainNavigator = createBottomTabNavigator({
->>>>>>> b37e4eba721b19c2c78bfc54d7a3d31e8e5d504f
 
 const ListMyNavigator = StackNavigator({
-  ListMy: {
-    screen: ListMy
-  },
-EditSelectProblem: {screen: EditSelectProblem}
-},
-{
-  headerMode: 'none',
-  navigationOptions: {
-    headerVisible: false,
-  }
- });
+        ListMy: {
+            screen: ListMy
+        },
+        EditSelectProblem: {screen: EditSelectProblem}
+    },
+    {
+        headerMode: 'none',
+        navigationOptions: {
+            headerVisible: false,
+        }
+    });
 const ProblemListNavigator = StackNavigator(
-  {
-  List: {
-    screen: ProblemList
-},
-ProblemInf: {screen: ProblemInf}
-},
-{
-  headerMode: 'none',
-  navigationOptions: {
-    headerVisible: false,
-  }
- }
+    {
+        List: {
+            screen: ProblemList
+        },
+        ProblemInf: {screen: ProblemInf}
+    },
+    {
+        headerMode: 'none',
+        navigationOptions: {
+            headerVisible: false,
+        }
+    }
 );
 const MainNavigator = createBottomTabNavigator({
-  'КАРТА': {
-    screen: Map,
+        'КАРТА': {
+            screen: Map,
 
-  },
-  'СПИСОК': {
-    screen: ProblemListNavigator,
+        },
+        'СПИСОК': {
+            screen: ProblemListNavigator,
 
-  },
-  'МОИ ЗАПИСИ': {
-    screen: ListMyNavigator,
+        },
+        'МОИ ЗАПИСИ': {
+            screen: ListMyNavigator,
 
-}},
-{
+        }},
+    {
 
-  tabBarOptions: {
+        tabBarOptions: {
 
-<<<<<<< HEAD
-=======
-}}, {
-  swipeEnabled: true,
-  navigationOptions: {
->>>>>>> b37e4eba721b19c2c78bfc54d7a3d31e8e5d504f
-  showIcon: false,
-  showLabel: true,
-  activeTintColor: '#F8F8F8',
-  inactiveTintColor: '#A9A9A9',
-  labelStyle: {
-        fontSize: 15,
-        paddingVertical: 15
-      },
-  style: {
-            backgroundColor: '#4682B4'
+            showIcon: false,
+            showLabel: true,
+            activeTintColor: '#F8F8F8',
+            inactiveTintColor: '#A9A9A9',
+            labelStyle: {
+                fontSize: 15,
+                paddingVertical: 15
+            },
+            style: {
+                backgroundColor: '#4682B4'
+            }
         }
-}
-});
-<<<<<<< HEAD
+    });
 const styles = StyleSheet.create ({
-  icon: {
-      color: '#F8F8F8'
-   },
-   header:{
-     backgroundColor: '#4682B4'
-   }
+    icon: {
+        color: '#F8F8F8'
+    },
+    header:{
+        backgroundColor: '#4682B4'
+    }
 })
-=======
 
->>>>>>> b37e4eba721b19c2c78bfc54d7a3d31e8e5d504f
