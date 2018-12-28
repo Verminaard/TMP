@@ -2,56 +2,20 @@ import React, { Component } from "react";
 import { Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right, Header, Toast, Root } from 'native-base';
 import {View, StyleSheet } from "react-native";
 import { DrawerNavigator } from 'react-navigation';
-import AuthService from "../../auth/AuthService";
-import update from 'immutability-helper';
 
 import RegisterPage from "ProjectOne/src/components/register/RegisterPage";
 export default class LogInPage extends Component {
-    static navigationOptions = {
-        tabBarIcon: ({tintColor}) => {
-            return <Icon name='md-home' stlye={{color: tintColor}}/>
-        }
+  static navigationOptions = {
+    tabBarIcon: ({ tintColor }) => {
+      return <Icon name='md-home' stlye={{ color: tintColor}} />
+    }
+  }
+  constructor(props) {
+    super(props);
+    this.state = {
+      showToast: false
     };
-    constructor(props) {
-        super(props);
-        this.state = {
-            login: '',
-            password: '',
-            showToast: false
-        };
-
-        this.Auth = new AuthService();
-        this.handleFormChange = this.handleFormChange.bind(this);
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    }
-
-    componentWillMount(){
-        const {navigate} = this.props.navigation;
-        if(this.Auth.loggedIn()) {
-            navigate('HomeScreen');
-        }
-    }
-
-    handleFormChange(value, field){
-        this.setState(
-            update(this.state, {
-                    [field]: { $set: value }
-            })
-        );
-    }
-
-    handleFormSubmit(){
-        const {navigate} = this.props.navigation;
-        console.log("onSubmit");
-        this.Auth.login(this.state.login,this.state.password)
-            .then(res =>{
-                console.log("Success!");
-                navigate('Домашняя страница');
-            })
-            .catch(err =>{
-                alert("Не правильный логин или пароль!" + err);
-            })
-    }
+  }
 
   render() {
      const {navigate} = this.props.navigation;
@@ -64,15 +28,15 @@ export default class LogInPage extends Component {
               </Header>
                 <Form >
                   <Item>
-                    <Input placeholder="Логин..." field="login" name="login" value={this.state.login} onChangeText={(text) => this.handleFormChange(text, "login")}/>
+                    <Input placeholder="Логин или e-mail" />
                   </Item>
                   <Item last>
-                    <Input placeholder="Пароль..." field="password" name="password" value={this.state.password} onChangeText={(text) => this.handleFormChange(text, "password")}/>
+                    <Input placeholder="Пароль" />
                   </Item>
                 </Form>
-                  <View style={styles.buttons}>
-                  <Right>
-                <Button style={styles.logB} block onPress= {this.handleFormSubmit}>
+                <View style={styles.buttons}>
+                <Right>
+                <Button  style={styles.logB} onPress={() => navigate('Домашняя страница')}>
                       <Text>Войти</Text>
                 </Button>
                 </Right>
@@ -101,7 +65,7 @@ const styles = StyleSheet.create ({
      justifyContent: 'center',
    },
    icon: {
-
+       
        color: '#F8F8F8'
     },
    header:{
@@ -119,4 +83,4 @@ const styles = StyleSheet.create ({
      alignItems:'center'
 
    }
-});
+})

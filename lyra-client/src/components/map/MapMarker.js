@@ -6,47 +6,65 @@ import { Icon, Text, Button, Container, Header, Content, Left, View } from 'nati
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 
 export default class MapMarker extends Component {
-  constructor(props) {
-super(props);
+  state = {
+    mapRegion: null,
+    lastLat: null,
+    lastLong: null,
 
-this.state = {
-markers: [{
+  }
+// сюда надо как то отправить данные с бд, где вместо цифр будут свои
+  constructor(props) {
+  super(props);
+  this.state = {
+    region:{
+      latitude: 21.123123123,
+      longitude: 105.123123123,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    },
+  markers:[{
   title: 'hello',
+  description:'desc',
   coordinates: {
     latitude: 3.148561,
-    longitude: 101.652778
+    longitude: 101.652778,
+    latitudeDelta:  0.00922*1.5,
+    longitudeDelta: 0.00421*1.5,
   },
-}]
+  }
+  ]
+  }
 }
-}
+
 
   render() {
      const {navigate} = this.props.navigation;
     return (
-      <View style={styles.container}>
-
-          <MapView provider={ PROVIDER_GOOGLE } style={styles.map}
+      <View style={{flex: 1}}>
+        <MapView
+          style={styles.map}
+          region={{
+            latitude: 3.148561,
+            longitude: 101.652778,
+            latitudeDelta:  0.00922*1.5,
+            longitudeDelta: 0.00421*1.5,
+          }}
           showsUserLocation={true}
-       followUserLocation={true}
-       zoomEnabled={true}
-          initialRegion={ {
-            latitude: 0,
-            longitude: 0,
-            latitudeDelta: 0,
-            longitudeDelta: 0,
-      }}>
-      {this.state.markers.map(marker => (
-          <MapView.Marker draggable
+          followUserLocation={true}
+
+        >
+          {this.state.markers.map(marker => (
+          <MapView.Marker
+          title={marker.title}
+          description={marker.description}
             coordinate={marker.coordinates}
-            title={marker.title}
-            description={marker.description}
-             onDragEnd={(e) => this.setState({ x: e.nativeEvent.coordinate })}
-          />
+            >
 
+          </MapView.Marker>
         ))}
+        </MapView>
 
-          </MapView>
-  </View>
+      </View>
     );
 
 
@@ -94,7 +112,7 @@ const styles = StyleSheet.create({
   map: {
       ...StyleSheet.absoluteFillObject,
     }  });
-    //AppRegistry.registerComponent('testCoords', () => testCoords);
+    AppRegistry.registerComponent('testCoords', () => testCoords);
 /*  container:{
     position: 'absolute',
     top: 0,
