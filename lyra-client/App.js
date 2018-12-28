@@ -1,8 +1,7 @@
 
 import React, { Component } from 'react';
 import { ScrollView,Platform, Text, View, StyleSheet } from 'react-native';
-import { StackNavigator, DrawerNavigator } from 'react-navigation';
-//import Drawer from 'react-native-drawer';
+import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 import HomeScreen from "./HomeScreen";
 import HomeScreenModer from "./HomeScreenModer";
 import SettingsScreen from "./SettingsScreen";
@@ -13,6 +12,7 @@ import ListMy from "./src/components/myList/ListMy";
 import LogInPage from "./src/components/login/LogInPage";
 import RegisterPage from "./src/components/register/RegisterPage";
 import EditAccountPage from "ProjectOne/src/components/editPage/EditAccountPage";
+import EditAccount from "ProjectOne/src/components/editPage/EditAccount";
 import AddProblem from "ProjectOne/src/components/addProblem/AddProblem";
 import EditProblem from "ProjectOne/src/components/EditProblem/EditProblem";
 import ProblemInf from "ProjectOne/src/components/ProblemInf/ProblemInf";
@@ -22,20 +22,44 @@ import SideBar from "./SideBar"
 import { Container, Header, Content, Footer, FooterTab,  Left, Body, Right, Title, Icon, Button, Drawer } from 'native-base';
 import FormTest from "./FormTest";
 import MapTry from "./MapTry";
-const Navigator = StackNavigator({
+const Navigator = createStackNavigator({
 
   Main:{
     screen: HomeScreen,
-    navigationOptions:  {
-  headerLeft: ({ tintColor }) => {
-    return <Icon name='home' style={{paddingLeft: 10}} onPress={() => this.props.navigation.openDrawer()} />
-  }
-}
+
+
 }
 });
+const AccountNavigator = createStackNavigator({
 
+  Main:{
+    screen: Account,
 
-const DrNv = DrawerNavigator({
+},
+ Edit:{ screen: EditAccount}
+},
+{
+  headerMode: 'none',
+  navigationOptions: {
+    headerVisible: false,
+  }
+ });
+ const AddNavigator = createStackNavigator({
+   AddProblem:{
+     screen: AddProblem,
+ },
+  EditProblem:{ screen: EditProblem},
+  MapCheck:{screen: MapTry}
+ },
+
+ {
+   headerMode: 'none',
+   navigationOptions: {
+     headerVisible: false,
+   }
+  });
+
+const DrNv = createDrawerNavigator({
 'Домашняя страница': {screen: HomeScreen,
 
  },
@@ -45,10 +69,10 @@ const DrNv = DrawerNavigator({
 Логин: {screen: LogInPage },
 'Регистрация': {screen: RegisterPage },
 //'Valid': {screen: FormTest },
-'Аккаунт':{screen: Account},
+'Аккаунт':{screen: AccountNavigator},
 //'Изменение аккаунта':{screen: EditAccountPage},
-'Добавление проблемы': {screen: AddProblem},
-'Изменение фото проблемы': {screen: EditProblem},
+'Добавление проблемы': {screen: AddNavigator},
+//'Изменение фото проблемы': {screen: EditProblem},
 //'Изменение выбранной проблемы': {screen: EditSelectProblem},
 //'Модерация проблемы':{screen: ProblemListModer},
 'MapTry':{screen:MapTry}

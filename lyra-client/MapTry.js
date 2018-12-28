@@ -10,6 +10,11 @@ export default class MapTry extends Component {
     mapRegion: null,
     lastLat: null,
     lastLong: null,
+
+  }
+  marker={
+    title: 'Тут заголовок проблемы',
+    description: 'Тут описание'
   }
 
   componentDidMount() {
@@ -49,6 +54,7 @@ export default class MapTry extends Component {
     this.onRegionChange(region, region.latitude, region.longitude);
   }
   render() {
+     const {navigate} = this.props.navigation;
     return (
       <View style={{flex: 1}}>
         <MapView
@@ -59,10 +65,13 @@ export default class MapTry extends Component {
           onRegionChange={this.onRegionChange.bind(this)}
           onPress={this.onMapPress.bind(this)}>
           <MapView.Marker
+          title={marker.title}
+          description={marker.description}
             coordinate={{
               latitude: (this.state.lastLat + 0.00050) || -36.82339,
               longitude: (this.state.lastLong + 0.00050) || -73.03569,
-            }}>
+            }}
+            >
             <View>
               <Text style={{color: '#000'}}>
                 { this.state.lastLong } / { this.state.lastLat }
@@ -70,6 +79,13 @@ export default class MapTry extends Component {
             </View>
           </MapView.Marker>
         </MapView>
+        <View style ={{ paddingTop:'100%', justifyContent: 'flex-start', alignItems:'center'}}>
+        <Left>
+        <Button style={styles.button} onPress={() => navigate('Домашняя страница')}>
+        <Text>Подтвердить</Text>
+        </Button>
+        </Left>
+      </View>
       </View>
     );
 
@@ -109,13 +125,16 @@ export default class MapTry extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: '100%'
+    //width: '100%',
+  //  height: '100%'
+  },
+  button:{
+    backgroundColor:'#4682B4'
   },
   map: {
       ...StyleSheet.absoluteFillObject,
     }  });
-    AppRegistry.registerComponent('testCoords', () => testCoords);
+    //AppRegistry.registerComponent('testCoords', () => testCoords);
 /*  container:{
     position: 'absolute',
     top: 0,

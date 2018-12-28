@@ -1,17 +1,14 @@
 import React, { Component } from "react";
 import {Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right,CheckBox,Body, List, ListItem, Thumbnail,Header } from 'native-base';
-import {View, StyleSheet } from "react-native";
+import {View, StyleSheet, Image } from "react-native";
 import { DrawerNavigator, createBottomTabNavigator } from 'react-navigation';
 import CheckboxFormX from 'react-native-checkbox-form';
 import EditAccountPage from "ProjectOne/src/components/editPage/EditAccountPage";
 import AddProblem from "ProjectOne/src/components/addProblem/AddProblem";
-import AuthService from '../../auth/AuthService';
-import withAuth from '../../components/hocs/withAuth';
-const Auth = new AuthService();
-
+const uri = "https://facebook.github.io/react-native/docs/assets/favicon.png";
 const mockData = [
     {
-        label: 'Проблемы',
+        label: '      Проблемы',
         value: 'one'
     },
     {
@@ -19,47 +16,45 @@ const mockData = [
         value: 'two'
     },
     {
-        label: 'Мои записи',
+        label: '    Мои записи',
         value: 'three'
     },
 ];
-
-class Account extends Component {
-    constructor() {
-        super();
-        this.handleLogout = this.handleLogout.bind(this);
-    }
-
-    handleLogout(){
-        Auth.logout();
-        this.props.history.replace('/login');
-    }
-
+export default class Account extends Component {
   _onSelect = ( item ) => {
       console.log(item);
     };
-
+    constructor(props) {
+      super(props);
+     this.state = {login : "Сюда логин", name: "сюда имя", surname:"сюда фамилия", patronymic:"Отчество"}
+    }
    render() {
       const {navigate} = this.props.navigation;
     return (
     <Container>
-    <Header style={styles.header}>
+    <Header style = {styles.header}>
+    <Left style={{flex:1}}>
     <Icon name="menu" style = {styles.icon} onPress={() => this.props.navigation.openDrawer()}/>
+    </Left>
     </Header>
     <Content>
 
             <List>
                 <ListItem thumbnail>
                   <Left>
-                    <Thumbnail square source={{ uri: 'Image URL' }} />
+                  <Image source={{uri: uri}}
+                       style={{width: 70, height:70  }} />
                   </Left>
                   <Body>
-                    <Text>ЛОГИН</Text>
-                      <Text note numberOfLines={1}>{this.props.user}</Text>
+                        <Text >ЛОГИН:  {this.state.login}</Text>
+                          <Text >ФАМИЛИЯ:  {this.state.surname}</Text>
+                            <Text >ИМЯ:  {this.state.name}</Text>
+                            <Text >ОТЧЕСТВО:  {this.state.patronymic}</Text>
+
                   </Body>
                   <Right>
-                    <Button transparent onPress={() => navigate('EditAccountPage')}>
-                      <Text>Изменить</Text>
+                    <Button transparent onPress={() => navigate('Edit')}>
+                    <Icon name="md-create" style = {{color:'#4682B4'}} />
                     </Button>
                   </Right>
                 </ListItem>
@@ -69,17 +64,19 @@ class Account extends Component {
              marginVertical: 10,
              backgroundColor: "#ffffff"
             }} >
+              <Left>
             <Text center>
-            Show me
+            Показывать мне
             </Text>
+              </Left>
               <CheckboxFormX
                   style={{
                     paddingRight: 200,
-                    width: 400 - 30
+                  //  width: 400 - 30
                   }}
                   dataSource={mockData}
-                 itemCheckedKey="RNchecked"
-                 itemShowKey="label"
+                  itemCheckedKey="RNchecked"
+                  itemShowKey="label"
                   iconSize={30}
                   iconPaddingRight={20}
                   formHorizontal={false}
@@ -88,10 +85,11 @@ class Account extends Component {
               />
           </View>
       </View>
-          <Button block onPress={() => navigate('AddProblem')}>
+          <Button block style={styles.buttons} onPress={() => navigate('Добавление проблемы')}>
             <Text>Добавить проблему</Text>
           </Button>
-          <Button block onClick={this.handleLogout}>
+            <Text>                              </Text>
+          <Button block  style={styles.buttons}>
             <Text>Выход</Text>
           </Button>
     </Content>
@@ -100,21 +98,20 @@ class Account extends Component {
   }
 }
 
-export default withAuth(Account);
-
 const styles = StyleSheet.create ({
   container: {
      flex: 1,
      alignItems: 'center',
      justifyContent: 'center',
-     backgroundColor: '#95D3BF'
+  //   backgroundColor: '#95D3BF'
 },
 icon: {
-    paddingRight: 350,
-    paddingTop:12,
     color: '#F8F8F8'
  },
  header:{
    backgroundColor: '#4682B4'
+ },
+ buttons:{
+   backgroundColor: '#4682B4'
  }
-});
+})

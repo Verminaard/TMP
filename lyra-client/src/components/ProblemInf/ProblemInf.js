@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right,Thumbnail,Label } from 'native-base';
 import {View, StyleSheet, Image } from "react-native";
 import { DrawerNavigator } from 'react-navigation';
+import MapMarker from "ProjectOne/src/components/map/MapMarker";
 export default class ProblemInf extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => {
@@ -34,7 +35,13 @@ export default class ProblemInf extends Component {
                     <Input disabled={true} value={this.state.status}/>
                   </Item>
                 </Form>
-
+                <Form style={{flex:1, alignItems:'center'}}>
+                     <Left>
+                <Button style={styles.saveB} onPress={() => navigate('MapMarker')}>
+                      <Text>Найти на карте</Text>
+                </Button>
+                     </Left>
+                </Form  >
               </Content>
 
     </Container>);
@@ -45,5 +52,12 @@ const styles = StyleSheet.create ({
      flex: 1,
      alignItems: 'center',
      justifyContent: 'center',
+   },
+   saveB:{
+     flex: 1,
+     margin: 10,
+     backgroundColor:'#4682B4',
+     alignItems:'center'
+
    },
 })

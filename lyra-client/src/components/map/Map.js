@@ -22,8 +22,20 @@ export default class Map extends Component {
   }
   constructor(props) {
 super(props);
+arrayMarkers=[
+  {
+  latitude:21.123123123,
+  longitude:105.123123123,
+  }
+]
 this.state = {
-markers: [{
+region:{
+  latitude: 21.123123123,
+  longitude: 105.123123123,
+  latitudeDelta: 0.01,
+  longitudeDelta: 0.01,
+},
+markers:arrayMarkers/*[{
   title: 'hello',
   description:'desc',
   coordinates: {
@@ -38,9 +50,41 @@ markers: [{
     latitude: 3.149771,
     longitude: 101.655449
   },
-}]
+}]*/
 }
 }
+onRegionChange(data){
+this.setState({
+  region:{
+    latitude:data.latitude,
+    longitude:data.longitude,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01,
+  }
+})
+}
+
+onPress(data){
+  let latitude = data.nativeEvent.coordinate.latitude;
+  let longitude = data.nativeEvent.coordinate.longitude;
+  arrayMarkers.push({
+    latitude:latitude,
+    longitude:longitude,
+  });
+  this.setState({markers:arrayMarkers});
+  console.log(this.state.markers);
+}
+renderMarkers(){
+  markers=[];
+  for (marker of this.state.markers){
+      markers.push(
+  <MapView.Marker key={marker.longitude} title={'title' + marker.latitude}
+                  description={'desc'}
+                  coordinate={marker}
+                  />
+)
+  }
+}/*
 /*  constructor() {
    super()
    this.state = {
@@ -92,17 +136,14 @@ markers: [{
              </MapView>
            </View> */
 
-        <View style={styles.container}>
+    /*    <View style={styles.container}>
 
           <MapView provider={ PROVIDER_GOOGLE } style={styles.map}
           showsUserLocation={true}
        followUserLocation={true}
        zoomEnabled={true}
           initialRegion={ {
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
+
       }}>
       {this.state.markers.map(marker => (
           <MapView.Marker draggable
@@ -113,8 +154,22 @@ markers: [{
           />
 
         ))}
+
           </MapView>
-  </View>
+  </View>*/
+  <View style={{flex:1}}>
+
+        <MapView  style={{flex:1}}
+        showsUserLocation={true}
+     followUserLocation={true}
+     zoomEnabled={true}
+        initialRegion={this.state.region}
+        onRegionChange={this.onRegionChange.bind(this)}
+        onPress={this.onPress.bind(this)}
+        >
+    {this.renderMarkers()}
+        </MapView>
+</View>
 
     );
   }

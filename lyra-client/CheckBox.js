@@ -27,7 +27,7 @@ const CheckBoxInput = res => {
     <View>
       <FormLabel>{`${_required}${label}`}</FormLabel>
       <CheckBox
-        title='Click Here'
+        title='Подтвердить'
         checked={value}
         onPress={() => onChange(value ? null : true)}
       />

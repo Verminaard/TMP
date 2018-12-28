@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right,Label,Body } from 'native-base';
 import {View, StyleSheet,Image } from "react-native";
 import { DrawerNavigator } from 'react-navigation';
+import MapMarker from "ProjectOne/src/components/map/MapMarker";
 export default class EditSelectProblem extends Component {
 
   constructor(props) {
@@ -48,6 +49,13 @@ export default class EditSelectProblem extends Component {
                 </Button>
                 </Right>
                 </View>
+                <Form style={{flex:1, alignItems:'center'}}>
+                     <Left>
+                <Button style={styles.editB} onPress={() => navigate('MapMarker')}>
+                      <Text>Найти на карте</Text>
+                </Button>
+                     </Left>
+                </Form  >
               </Content>
 
     </Container>);

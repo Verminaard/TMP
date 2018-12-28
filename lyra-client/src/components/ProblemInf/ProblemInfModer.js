@@ -46,6 +46,13 @@ export default class ProblemInfModer extends Component {
                   </Button>
                   </Right>
                   </View>
+                  <Form style={{flex:1, alignItems:'center'}}>
+                       <Left>
+                  <Button style={styles.saveB} onPress={() => navigate('MapTry')}>
+                        <Text>Найти на карте</Text>
+                  </Button>
+                       </Left>
+                  </Form  >
               </Content>
 
     </Container>);
@@ -68,5 +75,12 @@ const styles = StyleSheet.create ({
      backgroundColor:'red',
      alignItems:'center'
 
-   }
+   },
+   saveB:{
+     flex: 1,
+     margin: 10,
+     backgroundColor:'#4682B4',
+     alignItems:'center'
+
+   },
 })

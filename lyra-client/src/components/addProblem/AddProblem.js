@@ -28,13 +28,30 @@ export default class AddProblem extends Component {
                     <Input placeholder="Описание" />
                   </Item>
                 </Form>
-                <Image source={{uri: 'URL'}}
-                     style={{width: 300, height:300 }} />
-                <Button style={styles.addB} onPress={() => navigate('Изменение фото проблемы')}>
-                      <Text>Добавить фото</Text>
-                </Button>
 
-
+                <Form style={{alignItems:'center'}}>
+                <Image source={{uri: "sdf"}}
+                     style={{width: 200, height:200}} />
+                       </Form>
+                         <View style={styles.buttons}>
+                       <Left>
+                         <Button style={styles.addB} onPress={() => navigate('EditProblem')}>
+                               <Text>Добавить фото</Text>
+                         </Button>
+                           </Left>
+                         <Right>
+                         <Button style={styles.addB} onPress={() => navigate('MapTry')}>
+                               <Text>Отметить на карте</Text>
+                         </Button>
+                         </Right>
+                           </View >
+                           <Form style={{flex:1, alignItems:'center'}}>
+                                <Left>
+                           <Button style={styles.saveB} onPress={() => navigate('Домашняя страница')}>
+                                 <Text>Сохранить</Text>
+                           </Button>
+                                </Left>
+                           </Form  >
               </Content>
 
     </Container>);
@@ -44,7 +61,7 @@ const styles = StyleSheet.create ({
   buttons: {
     flex:1,
     margin: 20,
-  alignItems:'center'
+    flexDirection: 'row',
 
   },
   addB:{
@@ -52,10 +69,14 @@ const styles = StyleSheet.create ({
     backgroundColor:'#4682B4',
     alignItems:'center'
   },
+  saveB:{
+    flex: 1,
+    backgroundColor:'#32CD32',
+    alignItems:'center'
+
+  },
 
   icon: {
-      paddingRight: 350,
-      paddingTop:12,
       color: '#F8F8F8'
    },
    header:{

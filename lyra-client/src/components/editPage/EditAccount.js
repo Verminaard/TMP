@@ -71,13 +71,13 @@ const FORM_FIELDS = [
   },
   {
     key: 'confirm',
-    label: 'Подтвердить',
+    label: 'Подтвердить изменения',
     component: CheckBox,
     validators: { presence: { message: 'Пожалуйста подтвердите изменения' } },
   },
 ];
 
-export default class RegisterPage extends Component {
+export default class EditAccount extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -122,7 +122,7 @@ export default class RegisterPage extends Component {
           <Button
             style ={{color: '#4682B4'}}
             disabled={!this.state.isFormValid}
-            title={'Зарегистрироваться'}
+            title={'Принять изменения'}
             onPress={() => alert(JSON.stringify(this.state.form))}
           />
   </Card>

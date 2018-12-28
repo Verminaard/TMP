@@ -30,16 +30,19 @@ export default class EditProblem extends Component {
                     <Input placeholder="Описание" />
                   </Item>
                 </Form>
+                <Form style={{alignItems:'center'}}>
                 <Image source={{uri: uri}}
-                     style={{width: 300, height:300  }} />
+                     style={{width: 200, height:200,   }} />
+                       </Form>
                 <View style={styles.buttons}>
+
                 <Left>
-                  <Button style={styles.editB} onPress={() => navigate('HomeScreen')}>
+                  <Button style={styles.editB} onPress={() => navigate('EditProblem')}>
                         <Text>Изменить фото</Text>
                   </Button>
                     </Left>
                   <Right>
-                  <Button style={styles.saveB} onPress={() => navigate('HomeScreen')}>
+                  <Button style={styles.saveB} onPress={() => navigate('AddProblem')}>
                         <Text>Сохранить</Text>
                   </Button>
                   </Right>
@@ -69,8 +72,7 @@ const styles = StyleSheet.create ({
 
   },
    icon: {
-       paddingRight: 350,
-       paddingTop:12,
+
        color: '#F8F8F8'
     },
     header:{
