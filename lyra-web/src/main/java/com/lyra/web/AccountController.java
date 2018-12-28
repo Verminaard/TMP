@@ -1,11 +1,15 @@
 package com.lyra.web;
 
 import com.lyra.bean.common.ApplicationUser;
+import com.lyra.dto.UserShortDTO;
 import com.lyra.service.UserService;
 import com.lyra.transformer.UniversalTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AccountController extends GenericController
@@ -24,21 +28,21 @@ public class AccountController extends GenericController
         return userService.saveUser(applicationUser);
     }
 
-    @RequestMapping(value = "/user/{login}", method = RequestMethod.GET)
-    public ApplicationUser getUser(@AuthenticationPrincipal ApplicationUser applicationUser, @PathVariable("login") String login) {
-        if (!applicationUser.getLogin().equals(login))
+    @RequestMapping(value = "/user/me", method = RequestMethod.GET)
+    public UserShortDTO getUser(@AuthenticationPrincipal ApplicationUser applicationUser) {
+        if (applicationUser.getLogin() == null)
         {
             return null;
         }
-        return userService.loadUserByUsername(login);
+        return transform(userService.loadUserByUsername(applicationUser.getLogin()), UserShortDTO.class);
     }
 
     @RequestMapping(value = "/user/edit", method = RequestMethod.POST)
-    public ApplicationUser editUser(@AuthenticationPrincipal ApplicationUser applicationUser, @RequestBody ApplicationUser newApplicationUser) {
+    public UserShortDTO editUser(@AuthenticationPrincipal ApplicationUser applicationUser, @RequestBody ApplicationUser newApplicationUser) {
         if (!applicationUser.getLogin().equals(newApplicationUser.getLogin()))
         {
             return null;
         }
-        return userService.saveUser(newApplicationUser);
+        return transform(userService.saveUser(newApplicationUser), UserShortDTO.class);
     }
 }

@@ -5,7 +5,11 @@ import { DrawerNavigator, createBottomTabNavigator } from 'react-navigation';
 import CheckboxFormX from 'react-native-checkbox-form';
 import EditAccountPage from "ProjectOne/src/components/editPage/EditAccountPage";
 import AddProblem from "ProjectOne/src/components/addProblem/AddProblem";
+import AuthService from '../../auth/AuthService';
+import withAuth from '../../components/hocs/withAuth';
+const Auth = new AuthService();
 const uri = "https://facebook.github.io/react-native/docs/assets/favicon.png";
+
 const mockData = [
     {
         label: '      Проблемы',
@@ -20,16 +24,26 @@ const mockData = [
         value: 'three'
     },
 ];
-export default class Account extends Component {
+
+class Account extends Component {
+    constructor() {
+        super();
+        this.handleLogout = this.handleLogout.bind(this);
+    }
+
+    handleLogout(){
+        Auth.logout();
+        this.props.history.replace('/login');
+    }
+
   _onSelect = ( item ) => {
       console.log(item);
     };
-    constructor(props) {
-      super(props);
-     this.state = {login : "Сюда логин", name: "сюда имя", surname:"сюда фамилия", patronymic:"Отчество"}
-    }
+
    render() {
+       console.log("on render!", this.props);
       const {navigate} = this.props.navigation;
+      const {user} = this.props;
     return (
     <Container>
     <Header style = {styles.header}>
@@ -98,6 +112,8 @@ export default class Account extends Component {
   }
 }
 
+export default withAuth(Account);
+
 const styles = StyleSheet.create ({
   container: {
      flex: 1,
@@ -114,4 +130,4 @@ icon: {
  buttons:{
    backgroundColor: '#4682B4'
  }
-})
+});

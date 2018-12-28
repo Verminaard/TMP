@@ -1,6 +1,7 @@
 package com.lyra.bean.geo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.lyra.bean.common.GenericLombokEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @ToString
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Geotag
+public class Geotag extends GenericLombokEntity
 {
     @Column(name = "xValue")
     private double xValue;

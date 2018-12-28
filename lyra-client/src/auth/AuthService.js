@@ -1,3 +1,4 @@
+import { AsyncStorage } from "react-native"
 import decode from 'jwt-decode';
 import {SERVER_ADDRESS} from "../const/constants";
 
@@ -5,29 +6,33 @@ export default class AuthService {
     // Initializing important variables
     constructor(domain) {
         this.domain = domain || SERVER_ADDRESS; // API server domain
-        this.fetch = this.fetch.bind(this); // React binding stuff
+
         this.login = this.login.bind(this);
+        this.fetch = this.fetch.bind(this);
+        this.loadUser = this.loadUser.bind(this);
         this.getProfile = this.getProfile.bind(this)
     }
 
-    login(username, password) {
+    async login(login, password) {
         // Get a token from api server using the fetch api
-        return this.fetch(`${this.domain}/login`, {
+        return fetch(`${this.domain}/login`, {
             method: 'POST',
             body: JSON.stringify({
-                username,
-                password
+                login: login,
+                password: password
             })
-        }).then(res => {
-            this.setToken(res.token); // Setting the token in localStorage
-            console.log(getToken());
+        }).then(async res => {
+            await this.setToken(res.headers.map.authorization); // Setting the token in AsyncStorage
             return Promise.resolve(res);
         })
+            .catch((error) => {
+                console.warn('error',error);
+            })
     }
 
     loggedIn() {
         // Checks if there is a saved token and it's still valid
-        const token = this.getToken(); // GEtting token from localstorage
+        const token = this.getToken(); // GEtting token from AsyncStorage
         return !!token && !this.isTokenExpired(token) // handwaiving here
     }
 
@@ -45,28 +50,52 @@ export default class AuthService {
         }
     }
 
-    setToken(idToken) {
-        // Saves user token to localStorage
-        localStorage.setItem('id_token', idToken)
+    async loadUser(){
+        console.log("onLoadUser");
+        let user = await this.fetch(`${this.domain}/user/me`, {method: 'GET'});
+        console.log("loadedUser", user);
+        await AsyncStorage.setItem('user', JSON.stringify(user));
     }
 
-    getToken() {
-        // Retrieves the user token from localStorage
-        return localStorage.getItem('id_token')
+    async setToken(idToken) {
+        // Saves user token to AsyncStorage
+        try {
+            await AsyncStorage.setItem('id_token', idToken);
+            console.log("onSetTOKEN!");
+            await this.loadUser()
+        } catch (error) {
+            console.log("error while saving token" + JSON.stringify(error));
+        }
     }
 
-    logout() {
-        // Clear user token and profile data from localStorage
-        localStorage.removeItem('id_token');
+    async getToken() {
+        // Retrieves the user token from AsyncStorage
+        try {
+            const token = await AsyncStorage.getItem('id_token');
+            console.log("onGetToken!@!", token);
+            return token;
+        } catch (error) {
+            console.log("error while get token");
+        }
     }
 
-    getProfile() {
-        // Using jwt-decode npm package to decode the token
-        return decode(this.getToken());
+    async logout() {
+        // Clear user token and profile data from AsyncStorage
+        try {
+            await AsyncStorage.removeItem('id_token');
+        } catch (error) {
+            console.log("error while delete token");
+        }
+    }
+
+    async getProfile() {
+        let user = await AsyncStorage.getItem('user');
+        console.log("onGetProfile2", user);
+        return user;
     }
 
 
-    fetch(url, options) {
+    async fetch(url, options) {
         // performs api calls sending the required authentication headers
         const headers = {
             'Accept': 'application/json',
@@ -76,9 +105,9 @@ export default class AuthService {
         // Setting Authorization header
         // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
         if (this.loggedIn()) {
-            headers['Authorization'] = 'Bearer ' + this.getToken()
+            headers['Authorization'] = /*'Bearer ' + */await this.getToken()
         }
-
+        console.log("log2", headers, options);
         return fetch(url, {
             headers,
             ...options
