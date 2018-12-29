@@ -3,6 +3,7 @@ import {Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right,La
 import {View, StyleSheet,Image } from "react-native";
 import { DrawerNavigator } from 'react-navigation';
 import MapMarker from "ProjectOne/src/components/map/MapMarker";
+ import PhotoUpload from 'react-native-photo-upload'
 export default class EditSelectProblem extends Component {
 
   constructor(props) {
@@ -16,8 +17,26 @@ export default class EditSelectProblem extends Component {
     return (<Container>
               <Content>
               <Form style= {{alignItems:'center'}}>
-                <Image source={{uri: uri}}
-                     style={{width: 300, height:300  }} />
+              <PhotoUpload
+                onPhotoSelect={avatar => {
+                  if (avatar) {
+                    console.log('Image base64 string: ', avatar)
+                  }
+                }}
+              >
+                <Image
+                  style={{
+                    paddingVertical: 30,
+                    width: 300,
+                    height: 300,
+
+                  }}
+                  resizeMode='cover'
+                  source={{
+                    uri: ' '
+                  }}
+                />
+              </PhotoUpload>
                   <Item floatingLabel>
                     <Label>Заголовок:</Label>
                     <Input  onChangeText={(label) => this.setState({label})} value={this.state.label}/>

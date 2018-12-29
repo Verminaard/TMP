@@ -8,6 +8,10 @@ export default class ProblemList extends Component {
       return <Icon name='md-list' stlye={{ color: tintColor}} />
     }
   }
+  constructor(props) {
+    super(props);
+    this.state = { status: false };
+}
   render() {
     const uri = "https://facebook.github.io/react-native/docs/assets/favicon.png";
     var items = [
@@ -25,8 +29,13 @@ export default class ProblemList extends Component {
       <Container >
       <Content >
         <List dataArray={items}
+        style ={
+          this.state.status
+          ? styles.nice
+          : styles.drop
+        }
           renderRow={(item) =>
-            <ListItem onPress={() => navigate('ProblemInf')}>
+            <ListItem  onPress={() => navigate('ProblemInf')}>
             <Left>
             <View style={{flex:1}}>
             <Image source={{uri: uri}}
@@ -46,3 +55,11 @@ export default class ProblemList extends Component {
         </Container>);
   }
 }
+const styles = StyleSheet.create({
+  nice:{ backgroundColor: 'rgba(38, 153, 15, 0.3)'
+
+  },
+  drop:{
+backgroundColor: 'rgba(235, 40, 40, 0.3)'
+  }
+})

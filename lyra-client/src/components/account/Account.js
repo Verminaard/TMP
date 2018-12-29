@@ -5,6 +5,7 @@ import { DrawerNavigator, createBottomTabNavigator } from 'react-navigation';
 import CheckboxFormX from 'react-native-checkbox-form';
 import EditAccountPage from "ProjectOne/src/components/editPage/EditAccountPage";
 import AddProblem from "ProjectOne/src/components/addProblem/AddProblem";
+ import PhotoUpload from 'react-native-photo-upload';
 const uri = "https://facebook.github.io/react-native/docs/assets/favicon.png";
 const mockData = [
     {
@@ -41,10 +42,25 @@ export default class Account extends Component {
 
             <List>
                 <ListItem thumbnail>
-                  <Left>
-                  <Image source={{uri: uri}}
-                       style={{width: 70, height:70  }} />
-                  </Left>
+                <PhotoUpload
+                  onPhotoSelect={avatar => {
+                    if (avatar) {
+                      console.log('Image base64 string: ', avatar)
+                    }
+                  }}
+                >
+                  <Image
+                    style={{
+                      width: 70,
+                      height: 70,
+                      borderRadius: 75
+                    }}
+                    resizeMode='cover'
+                    source={{
+                      uri: ' '
+                    }}
+                  />
+                </PhotoUpload>
                   <Body>
                         <Text >ЛОГИН:  {this.state.login}</Text>
                           <Text >ФАМИЛИЯ:  {this.state.surname}</Text>

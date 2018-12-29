@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right,Header } from 'native-base';
 import {View, StyleSheet,Image  } from "react-native";
 import { DrawerNavigator } from 'react-navigation';
+ import PhotoUpload from 'react-native-photo-upload'
 export default class AddProblem extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => {
@@ -30,8 +31,26 @@ export default class AddProblem extends Component {
                 </Form>
 
                 <Form style={{alignItems:'center'}}>
-                <Image source={{uri: "sdf"}}
-                     style={{width: 200, height:200}} />
+                <PhotoUpload
+                  onPhotoSelect={avatar => {
+                    if (avatar) {
+                      console.log('Image base64 string: ', avatar)
+                    }
+                  }}
+                >
+                  <Image
+                    style={{
+                      paddingVertical: 30,
+                      width: 200,
+                      height: 200,
+
+                    }}
+                    resizeMode='cover'
+                    source={{
+                      uri: ' '
+                    }}
+                  />
+                </PhotoUpload>
                        </Form>
                          <View style={styles.buttons}>
                        <Left>

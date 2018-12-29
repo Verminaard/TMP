@@ -21,7 +21,7 @@ export default class ProblemInf extends Component {
 
                 <Form>
                 <Image source={{uri: uri}}
-                       style={{width: 100, height:100,  alignItems: 'center',}} />
+                       style={{width: 300, height:300,  alignItems: 'center',}} />
                   <Item floatingLabel>
                   <Label>Заголовк:</Label>
                     <Input disabled={true} value={this.state.author}/>

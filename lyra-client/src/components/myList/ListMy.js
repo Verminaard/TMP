@@ -10,6 +10,10 @@ export default class ListMy extends Component {
       return <Icon name='md-home' stlye={{ color: tintColor}} />
     }
   }
+  constructor(props) {
+    super(props);
+    this.state = { status: false };
+}
   render() {
     const uri = "https://facebook.github.io/react-native/docs/assets/favicon.png";
     var items = [
@@ -27,8 +31,21 @@ export default class ListMy extends Component {
       <Container >
       <Content >
         <List dataArray={items}
+
           renderRow={(item) =>
-            <ListItem onPress={() => navigate('EditSelectProblem')}>
+            <ListItem
+              renderRow ={( item ) =>{
+              if( item !== 'тут'  ){
+                this.setState({ status: !true });
+              }
+
+            }}
+            style ={
+              this.state.status
+              ? styles.nice
+              : styles.drop
+            }
+             onPress={() => navigate('EditSelectProblem')}>
             <Left>
             <View style={{flex:1}}>
             <Image source={{uri: uri}}
@@ -48,3 +65,11 @@ export default class ListMy extends Component {
         </Container>);
   }
 }
+const styles = StyleSheet.create({
+  nice:{ backgroundColor: 'rgba(38, 153, 15, 0.3)'
+
+  },
+  drop:{
+backgroundColor: 'rgba(235, 40, 40, 0.3)'
+  }
+})
