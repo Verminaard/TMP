@@ -30,9 +30,9 @@ export default class AuthService {
             })
     }
 
-    loggedIn() {
+    async loggedIn() {
         // Checks if there is a saved token and it's still valid
-        const token = this.getToken(); // GEtting token from AsyncStorage
+        const token = await this.getToken(); // GEtting token from AsyncStorage
         return !!token && !this.isTokenExpired(token) // handwaiving here
     }
 
@@ -80,9 +80,11 @@ export default class AuthService {
     }
 
     async logout() {
+        console.log("onExit");
         // Clear user token and profile data from AsyncStorage
         try {
             await AsyncStorage.removeItem('id_token');
+            await AsyncStorage.removeItem('user');
         } catch (error) {
             console.log("error while delete token");
         }
@@ -95,7 +97,7 @@ export default class AuthService {
     }
 
 
-    async fetch(url, options) {
+    async fetch(url, data, method) {
         // performs api calls sending the required authentication headers
         const headers = {
             'Accept': 'application/json',
@@ -107,10 +109,11 @@ export default class AuthService {
         if (this.loggedIn()) {
             headers['Authorization'] = /*'Bearer ' + */await this.getToken()
         }
-        console.log("log2", headers, options);
-        return fetch(url, {
+        console.log("log2", headers, data, "url", url);
+        return fetch(`${this.domain}/${url}`, {
             headers,
-            ...options
+            method: method,
+            body: JSON.stringify(data)
         })
             .then(this._checkStatus)
             .then(response => response.json())

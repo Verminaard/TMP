@@ -33,7 +33,7 @@ export default function withAuth(AuthComponent) {
                 }
             }
 
-            render() {
+             render() {
                 if (this.state.user) {
                     console.log("if");
                     return (
@@ -42,7 +42,7 @@ export default function withAuth(AuthComponent) {
                 }
                 else {
                     console.log("else");
-                    return (
+                   return (
                     <AuthComponent history={this.props.history} navigation={this.props.navigation} />
                     )
                 }

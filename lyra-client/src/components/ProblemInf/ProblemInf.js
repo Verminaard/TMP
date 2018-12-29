@@ -8,10 +8,14 @@ export default class ProblemInf extends Component {
     tabBarIcon: ({ tintColor }) => {
       return <Icon name='md-home' stlye={{ color: tintColor}} />
     }
-  }
+  };
+
   constructor(props) {
     super(props);
-   this.state = {author : "Автор", inf : "инф", status : "статус"}
+      const { navigation } = this.props;
+      const entry = navigation.getParam('entry', {});
+      console.log(entry);
+   this.state = {author : entry.applicationUser.fio, inf : entry.entryType, status : entry.entryStatus}
   }
   render() {
     const uri = "https://facebook.github.io/react-native/docs/assets/favicon.png";
@@ -23,7 +27,7 @@ export default class ProblemInf extends Component {
                 <Image source={{uri: uri}}
                        style={{width: 300, height:300,  alignItems: 'center',}} />
                   <Item floatingLabel>
-                  <Label>Заголовк:</Label>
+                  <Label>Автор:</Label>
                     <Input disabled={true} value={this.state.author}/>
                   </Item>
                   <Item floatingLabel>

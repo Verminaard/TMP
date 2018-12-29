@@ -2,24 +2,31 @@
 import React, { Component } from 'react';
 import { ScrollView,Platform, Text, View, StyleSheet } from 'react-native';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
-import HomeScreen from "./src/components/HomeScreen/HomeScreen";
-import HomeScreenModer from "./src/components/HomeScreen/HomeScreenModer";
+import HomeScreen from "./HomeScreen";
+import HomeScreenModer from "./HomeScreenModer";
+import SettingsScreen from "./SettingsScreen";
 import Map from "./src/components/map/Map";
 import ProblemList from "./src/components/list/ProblemList";
 import ProblemListModer from "./src/components/list/ProblemListModer";
 import ListMy from "./src/components/myList/ListMy";
 import LogInPage from "./src/components/login/LogInPage";
 import RegisterPage from "./src/components/register/RegisterPage";
-import EditAccountPage from "./src/components/editPage/EditAccountPage";
-import EditAccount from "./src/components/editPage/EditAccount";
-import AddProblem from "./src/components/addProblem/AddProblem";
-import EditProblem from "./src/components/EditProblem/EditProblem";
-import ProblemInf from "./src/components/ProblemInf/ProblemInf";
-import EditSelectProblem from "./src/components/EditSelectProblem/EditSelectProblem";
+import EditAccountPage from "ProjectOne/src/components/editPage/EditAccountPage";
+import EditAccount from "ProjectOne/src/components/editPage/EditAccount";
+import AddProblem from "ProjectOne/src/components/addProblem/AddProblem";
+import EditProblem from "ProjectOne/src/components/EditProblem/EditProblem";
+import ProblemInf from "ProjectOne/src/components/ProblemInf/ProblemInf";
+import EditSelectProblem from "ProjectOne/src/components/EditSelectProblem/EditSelectProblem";
 import Account from "./src/components/account/Account";
-import MapTry from "./MapTry";
-
+import SideBar from "./SideBar"
 import { Container, Header, Content, Footer, FooterTab,  Left, Body, Right, Title, Icon, Button, Drawer } from 'native-base';
+import FormTest from "./FormTest";
+import MapTry from "./MapTry";
+import AuthService from "./src/auth/AuthService";
+import withAuth from "./src/components/hocs/withAuth";
+
+const Auth = new AuthService();
+
 const Navigator = createStackNavigator({
 
   Main:{
@@ -57,20 +64,24 @@ const AccountNavigator = createStackNavigator({
    }
   });
 
-const DrNv = createDrawerNavigator({
-'Домашняя страница': {screen: HomeScreen,
 
- },
- 'Домашняя страница модератора': {screen: HomeScreenModer,
+class App extends Component {
+    constructor(){
+       super();
 
-  },
-Логин: {screen: LogInPage },
-'Регистрация': {screen: RegisterPage },
-'Аккаунт':{screen: AccountNavigator},
-'Добавление проблемы': {screen: AddNavigator}
+        this.state = {
+            isLoginIn: false
+        }
+    }
 
-});
-export default class App extends Component {
+    async componentWillReceiveProps(){
+        console.log("onRecive");
+        let loginIn = await Auth.loggedIn();
+        this.setState({
+            isLoginIn: loginIn
+        });
+    }
+
   closeDrawer = () => {
     this.drawer._root.close()
   };
@@ -79,12 +90,31 @@ export default class App extends Component {
   };
 
  render() {
+     console.log(this.state.isLoginIn);
+     const navigation = !(!!this.state.isLoginIn) ?
+         {
+             'Домашняя страница': {screen: HomeScreen,},
+             Логин: {screen: LogInPage },
+             'Регистрация': {screen: RegisterPage },
 
+             'MapTry':{screen:MapTry}
+         }:
+         {
+             'Домашняя страница': {screen: HomeScreen,},
+             'Аккаунт':{screen: AccountNavigator},
+             'Добавление проблемы': {screen: AddNavigator},
+
+             'MapTry':{screen:MapTry}
+         };
+    console.log("nav", navigation);
+     const DrNv = createDrawerNavigator(navigation);
     return (
 
-       <DrNv />
+       <DrNv/>
 
     );
 
   }
 }
+
+export default withAuth(App);

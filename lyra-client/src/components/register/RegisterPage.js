@@ -5,6 +5,7 @@ import DocForm from 'react-cross-form';
 import { Card, Button } from 'react-native-elements';
 import TextInput from 'ProjectOne/TextInput';
 import CheckBox from 'ProjectOne/CheckBox';
+import {SERVER_ADDRESS} from "../../const/constants";
 const FORM_FIELDS = [
 
     {
@@ -93,7 +94,45 @@ export default class RegisterPage extends Component {
       isFormValid: false,
       validateType: 'onFocus',
     };
+
+    this.register = this.register.bind(this);
   }
+
+    register() {
+      const {Login, Password, firstName, lastName, Patronymic, email} = this.state.form;
+      console.log(SERVER_ADDRESS + "/sign-up");
+      console.log(JSON.stringify({
+          login: Login,
+          password: Password,
+          firstName: firstName,
+          middleName: lastName,
+          lastName: Patronymic,
+          email: email,
+      }));
+        // Get a token from api server using the fetch api
+        return fetch(SERVER_ADDRESS + "/sign-up", {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            body: JSON.stringify({
+                login: Login,
+                password: Password,
+                firstName: firstName,
+                middleName: lastName,
+                lastName: Patronymic,
+                email: email,
+            })
+        }).then(res => {
+            console.log(res);
+            this.props.navigation.navigate('HomeScreen');
+        })
+            .catch((error) => {
+                console.warn('error',error);
+            })
+    }
+
   render() {
     return (
     <Container>
@@ -123,7 +162,7 @@ export default class RegisterPage extends Component {
             style ={{color: '#4682B4'}}
             disabled={!this.state.isFormValid}
             title={'Зарегистрироваться'}
-            onPress={() => alert(JSON.stringify(this.state.form))}
+            onPress={this.register}
           />
   </Card>
       </View>

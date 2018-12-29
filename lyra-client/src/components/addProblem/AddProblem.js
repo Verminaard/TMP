@@ -2,13 +2,52 @@ import React, { Component } from "react";
 import {Container, Text, Content, Icon, Form, Item, Input,Button, Left, Right,Header } from 'native-base';
 import {View, StyleSheet,Image  } from "react-native";
 import { DrawerNavigator } from 'react-navigation';
- import PhotoUpload from 'react-native-photo-upload'
+import AuthService from "../../auth/AuthService";
+import update from "immutability-helper/index";
+import PhotoUpload from 'react-native-photo-upload'
 export default class AddProblem extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            entryName: '',
+            entryType: '',
+            description: ''
+        };
+
+        this.Auth = new AuthService();
+        this.handleFormChange = this.handleFormChange.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    }
+
+    handleFormChange(value, field){
+        this.setState(
+            update(this.state, {
+                [field]: { $set: value }
+            })
+        );
+    }
+
+    handleFormSubmit(){
+        const {navigate} = this.props.navigation;
+        console.log(this.state, "auth", this.Auth);
+        console.log("onSubmit");
+        this.Auth.fetch("entry/save", this.state, 'PUT')
+            .then(res =>{
+                console.log("Success!");
+                navigate('Домашняя страница', {res});
+            })
+            .catch(err =>{
+                alert("Ошибка!" + err);
+            })
+    }
+
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => {
       return <Icon name='md-home' stlye={{ color: tintColor}} />
     }
-  }
+  };
+
   render() {
      const {navigate} = this.props.navigation;
     return (<Container>
@@ -20,13 +59,13 @@ export default class AddProblem extends Component {
               <Content>
                 <Form>
                   <Item>
-                    <Input placeholder="Заголовок" />
+                    <Input placeholder="Заголовок" value={this.state.entryName} onChangeText={(text) => this.handleFormChange(text, "entryName")}/>
                   </Item>
                   <Item>
-                    <Input placeholder="Тип заявки" />
+                    <Input placeholder="Тип заявки" value={this.state.entryType} onChangeText={(text) => this.handleFormChange(text, "entryType")} />
                   </Item>
                   <Item last>
-                    <Input placeholder="Описание" />
+                    <Input placeholder="Описание" value={this.state.description} onChangeText={(text) => this.handleFormChange(text, "description")}/>
                   </Item>
                 </Form>
 
@@ -66,7 +105,7 @@ export default class AddProblem extends Component {
                            </View >
                            <Form style={{flex:1, alignItems:'center'}}>
                                 <Left>
-                           <Button style={styles.saveB} onPress={() => navigate('Домашняя страница')}>
+                           <Button style={styles.saveB} onPress={() => this.handleFormSubmit()}>
                                  <Text>Сохранить</Text>
                            </Button>
                                 </Left>

@@ -2,40 +2,52 @@ import React, { Component } from "react";
 import {Container, Header, Content, List, ListItem, Text, Left, Right, Icon, Button,Body } from 'native-base';
 import {View, StyleSheet,Image } from "react-native";
 import ProblemInf from "ProjectOne/src/components/ProblemInf/ProblemInf";
+import {SERVER_ADDRESS} from "../../const/constants";
 export default class ProblemList extends Component {
+    constructor(props){
+        super(props);
+        this.state ={
+            entryList: {}
+        };
+        this.loadEntry = this.loadEntry.bind(this);
+    }
+
+    componentDidMount() {
+        this.loadEntry();
+    }
+
+    loadEntry(){
+        fetch(`${SERVER_ADDRESS}/entry/list`, {
+            method: 'GET',
+        }).then(res => {
+            this.setState({entryList: JSON.parse(res._bodyText)});
+        })
+            .catch((error) => {
+                console.warn('error',error);
+            })
+    }
+
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => {
       return <Icon name='md-list' stlye={{ color: tintColor}} />
     }
-  }
-  constructor(props) {
-    super(props);
-    this.state = { status: false };
-}
+  };
+
   render() {
     const uri = "https://facebook.github.io/react-native/docs/assets/favicon.png";
-    var items = [
-     'Это',
-     'Динамические',
-
-     'Листы',
-     'Новый'
-   ];
-   var describe = [
-    'Сюда описание',
-  ];
+   console.log(this.state);
    const {navigate} = this.props.navigation;
     return (
       <Container >
       <Content >
-        <List dataArray={items}
+        <List dataArray={this.state.entryList}
         style ={
           this.state.status
           ? styles.nice
           : styles.drop
         }
           renderRow={(item) =>
-            <ListItem  onPress={() => navigate('ProblemInf')}>
+            <ListItem  onPress={() => navigate('ProblemInf', {entry: item})}>
             <Left>
             <View style={{flex:1}}>
             <Image source={{uri: uri}}
@@ -43,9 +55,9 @@ export default class ProblemList extends Component {
             </View>
             </Left>
             <Body style={{flex:2}}>
-              <Text >{item}</Text>
+              <Text >{item.entryName}</Text>
               <View style={{flex:2}}>
-                <Text note >{describe}</Text>
+                <Text note >{item.description}</Text>
               </View>
               </Body>
             </ListItem>
